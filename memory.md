@@ -623,9 +623,10 @@ error and empty state. Nothing in the Clients area is owed.
 B-04a/b, C-01b and CL-09a are flow variants and correctly keep their lowercase suffixes. See §8.
 
 **The illustrated empty state is the file's second shared idiom**, after B-03's skeleton/loading
-pattern. Authored once on CL-01-EMPTY (root `FQS-0`) and cloned outward — **twelve uses as of Track
-B5** (the original six, plus B-05-EMPTY, CA-01-EMPTY, CA-02-EMPTY, S-01-EMPTY and both S-02-EMPTYs),
-verified byte-identical every time.
+pattern. Authored once on CL-01-EMPTY (root `FQS-0`) and cloned outward - **fourteen uses as of Batch
+A** (the original six, plus B-05-EMPTY, CA-01-EMPTY, CA-02-EMPTY, S-01-EMPTY and both S-02-EMPTYs
+through Track B5, then W-02a-EMPTY `RU3-0` and W-02-EMPTY `SUH-0` when Batch A's miscloned bodies
+were replaced, §8), verified byte-identical every time.
 **Reuse it; do not author a second one.** It is a 72×72
 `--color-neutral-bg` glyph at 16px radius holding two `--color-rule` bars, an 18px/600 ink title,
 a 14px/400 ink-muted line capped at 380px, centred at 64px/24px padding with 16px gap. Deliberately
