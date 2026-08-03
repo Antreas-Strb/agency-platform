@@ -4,26 +4,26 @@ Single source of truth for this project. Read this before doing anything. Update
 decision is made, a screen ships, or a fact is discovered that a future session would otherwise
 have to rediscover.
 
-Last updated: **3 Aug 2026 — Batch A: the last three P1 variant screens, found already built and
+Last updated: **3 Aug 2026 - Batch A: the last three P1 variant screens, found already built and
 undocumented, audited and repaired. 111 → 119 artboards.**
 A prior interrupted run had built all of Batch A in the file at worldY 19000 but never updated this
-memory. Eight artboards: **W-02a project-detail list view** — which closes the **PRD §6.5 P0**
-"board and list view per project" gap — the **W-02 board's own `-LOADING`/`-EMPTY`** states, a
+memory. Eight artboards: **W-02a project-detail list view** - which closes the **PRD §6.5 P0**
+"board and list view per project" gap - the **W-02 board's own `-LOADING`/`-EMPTY`** states, a
 **shared board+list `W-02-ERROR`**, and the two role variants **W-02b (contractor board)** and
 **D-01a (contractor dashboard)**. Nothing was rebuilt and no new shared idiom was authored; the three
 "Still to design (P1)" variant items in §6 are now discharged and the W-02 state-coverage debt with them.
 **Four real defects were caught by node inspection and fixed in place.** Three of the "state"
-artboards had been miscloned — both empties and the error rendered fully-populated *source* content,
-and only the two loading skeletons were correct — and W-02b's topbar carried the Owner persona
+artboards had been miscloned - both empties and the error rendered fully-populated *source* content,
+and only the two loading skeletons were correct - and W-02b's topbar carried the Owner persona
 instead of the Contractor. All four fixes were re-verified at node level; the design auditor confirmed
 the contractor sidebars match W-04 token-for-token and accent stays reserved to the running timer.
 **New §8 lesson: a `-EMPTY`/`-ERROR` artboard existing under the right name is NOT evidence the state
-was built** — a clone whose body was never swapped silently renders the source's populated content, so
+was built** - a clone whose body was never swapped silently renders the source's populated content, so
 state artboards must be verified by *body inspection*, not by name or existence. spec-compliance-checker
 again mis-read persona and empty states from screenshots/names (the failure §8 already records); the
 design-consistency-auditor's node-level findings were authoritative.
 
-(Prior: **2 Aug 2026 — Track B5: the last P1 route screens. 98 → 111 artboards.**
+(Prior: **2 Aug 2026 - Track B5: the last P1 route screens. 98 → 111 artboards.**
 **Every P1 route in the sitemap tree now has a screen.** Thirteen artboards at worldY 17000:
 **S-01 audit log** with all three states, **S-02 notifications centre in BOTH chromes** (console and
 portal, four artboards each), and **S-03a**, the Admin (AA) settings variant that was the last item
@@ -188,7 +188,7 @@ is canonical and the other nine auth artboards are clones of it.
 **notification row `PHM-0`** (Track B5; icon lane + eyebrow/title column + mono nowrap timestamp lane
 + chevron) · **All/Unread pill group `PHE-0` active / `PHH-0` inactive** ·
 **contractor console reference `QT0-0`** (Batch A; contractor topbar + six-item gated sidebar
-together — clone this for any future AC console screen, matches W-04 `IMB-0`) ·
+together - clone this for any future AC console screen, matches W-04 `IMB-0`) ·
 **project-detail list/table view `R0Z-0`** (Batch A; source for any future list view of a board)
 
 **There is no Notifications item in the console sidebar and none in the portal nav.** Notifications
@@ -484,7 +484,7 @@ back-solved VAT that was not 24% of its own net.
 
 ## 6. Screens designed (119 artboards)
 
-**Batch A — the last three P1 variant screens (eight artboards, all at worldY 19000).** Built by a
+**Batch A - the last three P1 variant screens (eight artboards, all at worldY 19000).** Built by a
 prior interrupted run, left undocumented, then audited and repaired in place (see §8). None rebuilt,
 no new shared idiom authored.
 **W-02a project detail: list view** (`R0Z-0`, x −720) · **W-02a-LOADING** (`RHE-0`, 800) ·
@@ -494,23 +494,23 @@ no new shared idiom authored.
 **W-02b project board, contractor (AC)** (`S6S-0`, 8400) ·
 **D-01a dashboard, contractor (AC)** (`QT0-0`, 9920)
 
-**W-02a closes the PRD §6.5 P0 gap** — "board and list view per project" now has both views. It is a
+**W-02a closes the PRD §6.5 P0 gap** - "board and list view per project" now has both views. It is a
 genuine distinct route body (`/projects/{id} board | list`), so it correctly owns its own
-`-LOADING`/`-EMPTY` and **shares the content-independent `W-02-ERROR` with the board** — board and
+`-LOADING`/`-EMPTY` and **shares the content-independent `W-02-ERROR` with the board** - board and
 list share the project-detail shell *and* body region, the exact CL-03-ERROR / CA-01-ERROR condition
 in §2. The board additionally gained its own `-LOADING`/`-EMPTY`, which **discharges the W-02
-state-coverage debt** the list below used to carry. **W-02b and D-01a carry no state artboards** —
+state-coverage debt** the list below used to carry. **W-02b and D-01a carry no state artboards** -
 pure role/permission variants, precedent CL-01c/CL-01d/S-03a. The eight-artboard set is the complete
 required-state set for W-02 board + W-02a list + the two role variants.
-**Both contractor screens gate the sidebar exactly like W-04 (`IMB-0`)** — Requests, Clients, Billing,
+**Both contractor screens gate the sidebar exactly like W-04 (`IMB-0`)** - Requests, Clients, Billing,
 Catalog, Audit log, Settings muted (label `--color-ink-muted`/500, icon `--color-ink-faint`, badges
 `--color-neutral-bg`/`--color-ink-muted`), verified token-for-token by the design auditor. **D-01a is
-the reduced dashboard** — "My hours" KPI + my-tasks-grouped-by-status + timer only, no money or
-agency-wide widgets — rendering the **Dimitra K. / Contractor** persona (§5). **W-02b is the filtered
+the reduced dashboard** - "My hours" KPI + my-tasks-grouped-by-status + timer only, no money or
+agency-wide widgets - rendering the **Dimitra K. / Contractor** persona (§5). **W-02b is the filtered
 board** ("AC: assigned tasks only") on the same persona. **QT0-0 is now the clean contractor-console
 reference** (contractor topbar + gated sidebar together) for any future AC screen; **R0Z-0 is the
 source for any future project-detail list/table view.** The W-02a Board/List toggle is an **ink-filled
-active pill with no accent** — accent stays reserved to the running timer.
+active pill with no accent** - accent stays reserved to the running timer.
 
 **System + the Admin settings variant (Track B5 — thirteen artboards, all at worldY 17000)** —
 **S-01 audit log** (`NXD-0`, x −720) · **S-01-LOADING** (`OK4-0`, 800) ·
@@ -748,15 +748,15 @@ tree line by line in Track B5, and independently by spec-compliance-checker. The
 W-01/W-04 (B3), B-05 and the catalog (B4), and S-01/S-02/S-03a (B5) are all done with their states.
 
 **Route coverage is NOT the same as design coverage. The three variant items that used to sit here are
-now DISCHARGED — built in Batch A (§6 top, worldY 19000), audited and repaired.** They were the fourth
+now DISCHARGED - built in Batch A (§6 top, worldY 19000), audited and repaired.** They were the fourth
 time this list proved incomplete, so treat the warning as permanent rather than historical, and keep
 walking the sitemap route tree yourself before scoping any batch.
 
-- ~~**W-02's list view (PRD §6.5 P0).**~~ **DONE — `R0Z-0` (W-02a)**, with its own `-LOADING`/`-EMPTY`
+- ~~**W-02's list view (PRD §6.5 P0).**~~ **DONE - `R0Z-0` (W-02a)**, with its own `-LOADING`/`-EMPTY`
   and the shared `W-02-ERROR`. The board also gained `-LOADING`/`-EMPTY`. P0 gap closed.
-- ~~**D-01's contractor variant.**~~ **DONE — `QT0-0` (D-01a)**, the reduced "my tasks + my timer"
+- ~~**D-01's contractor variant.**~~ **DONE - `QT0-0` (D-01a)**, the reduced "my tasks + my timer"
   dashboard on the Dimitra K. / Contractor persona.
-- ~~**W-02's contractor variant.**~~ **DONE — `S6S-0` (W-02b)**, the "AC: assigned tasks only"
+- ~~**W-02's contractor variant.**~~ **DONE - `S6S-0` (W-02b)**, the "AC: assigned tasks only"
   filtered board on the same persona.
 
 **The state-coverage debt across older screens is large and mostly untouched.** Sitemap §Conventions
@@ -1315,9 +1315,9 @@ C-06 uses a filled+bordered 20×20 timeline marker** — all geometry and copy, 
   a *token* beats a sweep for a *label string* when copy varies by surface. This is the third time §8
   records a dimmed base layer nearly being missed.
 
-**Batch A — the three P1 variants were already built, undocumented; audited and repaired. 111 → 119
+**Batch A - the three P1 variants were already built, undocumented; audited and repaired. 111 → 119
 artboards.** A prior interrupted run had built all of Batch A at worldY 19000 (the eight artboards
-listed at the top of §6) and committed nothing — the file was two full tracks ahead of this memory.
+listed at the top of §6) and committed nothing - the file was two full tracks ahead of this memory.
 The screens were verified, not trusted, and **four real defects surfaced under node inspection:**
 - **Three "state" artboards had been miscloned.** `RU3-0` (W-02a-EMPTY) rendered a full 13-row table
   with a running timer; `SUH-0` (W-02-EMPTY) rendered a full five-column board with a running-timer
@@ -1332,11 +1332,11 @@ The screens were verified, not trusted, and **four real defects surfaced under n
   Fixed to Dimitra K. / Contractor / DK (`SBB-0`/`SBA-0`/`SB8-0`), matched to `QT0-0` and `IMB-0`.
 - **THE LESSON: a `-EMPTY`/`-ERROR` artboard existing under the right name is not evidence the state
   was built.** A clone whose body was never swapped renders the *source's* populated content, silently
-  and with no error — three of five state artboards here were exactly that. **Verify a state artboard
+  and with no error - three of five state artboards here were exactly that. **Verify a state artboard
   by inspecting its body, never by trusting its name or its presence in the artboard list.** This is
-  the mirror of §4's "a rename cannot be verified with `find_nodes`" — an artboard's name and its
+  the mirror of §4's "a rename cannot be verified with `find_nodes`" - an artboard's name and its
   content are independent, in both directions.
-- **spec-compliance-checker mis-read persona and empty states from screenshots/names again** — it
+- **spec-compliance-checker mis-read persona and empty states from screenshots/names again** - it
   reported W-02b's persona "correct (Dimitra K.)" and the empties as fine, all three wrong. Same
   failure mode §8 already records for that agent (the W-04 sidebar false-positive). The
   design-consistency-auditor's node-level findings were authoritative and the miscloned bodies would
@@ -1344,8 +1344,8 @@ The screens were verified, not trusted, and **four real defects surfaced under n
   which body a state artboard shows must be settled at node level, not from a screenshot.**
 - **Even the design auditor's screenshot-derived body description of `T2U-0` was imprecise** (it named
   a contractor "MY HOURS LOGGED 12.0h" widget; node inspection found owner chrome byte-identical to
-  `13J-0` with a 64.0/90.0h owner budget widget). Its structural conclusion — a populated board where
-  an error panel belonged — was still correct, so the fix target held; the fix was authored off the
+  `13J-0` with a 64.0/90.0h owner budget widget). Its structural conclusion - a populated board where
+  an error panel belonged - was still correct, so the fix target held; the fix was authored off the
   node truth, not the screenshot description.
 - **Passed clean after fixes:** contractor sidebars on both `S6S-0` and `QT0-0` match W-04 (`IMB-0`)
   token-for-token (six gated items ink-muted/ink-faint, badges neutral-bg, correct route active-marked);
@@ -1353,7 +1353,7 @@ The screens were verified, not trusted, and **four real defects surfaced under n
   fonts (zero system-ui) and §2 naming all compliant. Nothing rebuilt, no new shared idiom authored.
   **Known layer-label quirk left unfixed** (invisible to users, W-01 "New client" precedent): on
   `R0Z-0` the toggle segment named "Board (active)" (`R4U-0`) is the styled-*inactive* half and
-  "List (inactive)" (`R4S-0`) is the styled-*active* one — labels swapped from rendered state; rename
+  "List (inactive)" (`R4S-0`) is the styled-*active* one - labels swapped from rendered state; rename
   only if already editing those nodes.
 
 *(Historical statement of the problem, kept because the reasoning is still the ruling:)*
