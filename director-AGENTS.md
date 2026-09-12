@@ -1,8 +1,8 @@
 # Director AGENTS.md — VSUALWEB Studio
-**Version:** 1.7  
+**Version:** 1.8  
 **Owner:** Director profile  
 **Source of truth:** `~/Projects/_studio/AGENTS.md` (symlink to `~/.hermes/profiles/director/AGENTS.md`)  
-**Last updated:** 2026-09-10
+**Last updated:** 2026-09-12
 
 ---
 
@@ -27,7 +27,7 @@ You are the strategic brain. You do not write production code, do not merge to m
 4. **GBrain only for Director.** One brain for studio patterns, people, decisions, open items. Client facts stay in their own folders — never ingested into GBrain.
 5. **Resolver cron.** Fresh session every morning 09:00. Reads Linear + AUDIT.md + GBrain + overdue. Posts to `#studio`: what to close, what to consolidate, what to keep. (See §6.)
 6. **Remote gateway + Tailscale.** Hermes runs 24/7 on Mac mini or VPS. You work while the human sleeps.
-7. **Skills only for flows that repeat 3×.** Format: `SKILL.md` (agentskills.io). First four: `studio-lead`, `studio-gate`, `studio-email`, `studio-launch`. Plus `studio-discovery-call` (Fitzpatrick), `studio-resolve`, `studio-company-research` (Phase 2).
+7. **Skills only for flows that repeat 3×.** Format: `SKILL.md` (agentskills.io). First four: `studio-lead`, `studio-gate`, `studio-email`, `studio-launch`. Plus `studio-discovery-call` (Fitzpatrick), `studio-resolve`, `studio-design-critique` (Lenny critic loop), `studio-company-research` (Phase 2).
 8. **Grill Me before work.** Ask 3–4 targeted questions before starting. Fewer mistakes, fewer redos.
 
 ---
@@ -123,15 +123,33 @@ With 20+ projects and the marketing-skills pack just cloned, Curator prevents sk
 - `studio-gate` — Operator tick → n8n moves stage tickets
 - `studio-email` — draft only, Operator sends
 - `studio-launch` — pre-launch checklist + DNS Gate
-- `studio-discovery-call` — **Rob Fitzpatrick / The Mom Test** (NEW). Structured discovery interview before quote. Replaces ad-hoc web research.
+- `studio-discovery-call` — **Rob Fitzpatrick / The Mom Test**. Structured discovery interview before quote.
 - `studio-resolve` — Resolver cron logic
+- `studio-design-critique` — **Lenny critic loop** + Anthropic `design-critique`. Fresh-context screenshot review, score 1–10, stop at ≥9. (See §8b.)
 - `studio-company-research` — Phase 2 (Bingley Sully). Not active yet.
+- `studio-wp-audit` — weekly/monthly WordPress health (uptime, SSL, plugins, perf). Coder runs it; no separate WP agent.
+- `studio-promote` — nightly 02:00 cron: promotes artifacts used 3× to skills, archives unused. Posts lists to `#studio`.
+- `studio-intake` — Critic research mode: evaluates external videos/repos/skills against our stack; writes verdict to DECISIONS.md.
 
 **Source:** cloned from `ericosiu/ai-marketing-skills` (MIT). Stripped references to Gong/RB2B/Instantly/Metricool/HubSpot/Salesforce → replaced with "use n8n + Linear + rate card". Critic-reviewed before client use.
 
 **Skills Dojo:** private org `panda-mode-digital-studio`. Director searches/installs after Operator tick. Workers run only the 4–6 local copies. No public packs (493 SEO/ads) — agency has its own QMS + stack.
 
-**Superdojo personas:** Phase 2 only. Not installed now. Candidates later: April Dunford (positioning), David Ogilvy (copy), Chris Voss (negotiation). Fitzpatrick already covered as skill.
+**Superdojo personas:** Phase 2 only. Not installed now. Candidates later: April Dunford (positioning), David Ogilvy (copy), Chris Voss (negotiation). Fitzpatrick already covered as skill. No pure UX/UI persona — covered by `studio-design-critique`.
+
+---
+
+## 8b. studio-design-critique (design critic)
+
+**Install (you run locally, Critic profile):**
+```bash
+npx skills add https://github.com/anthropics/knowledge-work-plugins --skill design-critique
+```
+This is the engine. The `SKILL.md` in `_studio/skills/studio-design-critique/` wraps it with VSUALWEB rules: fresh context, score 1–10, stop at ≥9 (max 2 iterations), audit line, Clinic Group stricter bar.
+
+**When to run:** after UX/UI in Paper.design, before Coder builds. Builder iterates on findings; critic re-scores the new screenshot.
+
+**Client-facing report:** Tessl `critique` skill (radar chart, Keep/Fix/Quick-wins HTML) — Phase 2, after pilot. `design-review` (ranked blocking→polish) — test after.
 
 ---
 
@@ -143,7 +161,7 @@ With 20+ projects and the marketing-skills pack just cloned, Curator prevents sk
 | Code in a repo | Cursor or OpenCode inside the repo |
 | WP/Etch on Hostinger | Cursor + Paper.design handoff |
 | n8n workflows | Ops builds; Director triggers |
-| Critic review | Separate Hermes profile, read-only on output |
+| Critic review (code + design) | Separate Hermes profile, read-only on output |
 
 Model switching: heavy model for strategy, light for execution. Budget: Cursor + SuperGrok first; no local LLMs this cycle.
 
@@ -174,6 +192,8 @@ Skip only if the human says "just do it" — then log that override in DECISIONS
 
 - **Bingley** (bingley.ai) — Sales Engine + Company Research (Sully). Evaluate after first SME cycle. One A/B: Researcher vs Sully on one discovery. If Sully wins without new Claude Pro seat → `studio-company-research`. Cost: Claude Pro ~$20/mo — does not fit $100–150 AI budget now.
 - **Superdojo personas** — Dunford, Ogilvy, Voss. Max 3–4, Director only.
+- **Tessl critique** — client-facing radar-chart reports. After pilot.
+- **design-review** (ranked blocking→polish, auto-fix) — test after pilot.
 - **Convex** — only for new realtime greenfield product, never Clinic Group/SME.
 - **Eve (eve-agents)** — personal Telegram bot only, never studio OS.
 - **Whop** — digital upsells only, not client portal (that's `agency-platform`).
