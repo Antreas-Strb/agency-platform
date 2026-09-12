@@ -1,5 +1,5 @@
 # Director AGENTS.md — VSUALWEB Studio
-**Version:** 1.8  
+**Version:** 1.9  
 **Owner:** Director profile  
 **Source of truth:** `~/Projects/_studio/AGENTS.md` (symlink to `~/.hermes/profiles/director/AGENTS.md`)  
 **Last updated:** 2026-09-12
@@ -188,7 +188,45 @@ Skip only if the human says "just do it" — then log that override in DECISIONS
 
 ---
 
-## 12. Phase 2 — locked, not active
+## 12. Conflict rules (NEW — from Eric Siu Grok bots video)
+
+When two agents or loops disagree, **execution stops** until a human decides. No silent override.
+
+| Conflict | Who decides | Action while pending |
+|---|---|---|
+| Coder wants change Critic rejected | Operator | Coder halts; ticket stays `blocked` |
+| Director proposes send, Critic flags risk | Operator | Draft held; no client email |
+| Two loops touch same client folder | Director | Lower-priority loop pauses |
+| Clinic Group vs SME memory bleed attempt | Operator (immediate) | Hard stop; AUDIT.md entry; investigate |
+| n8n workflow vs manual Operator edit | Operator | n8n run cancelled for that client |
+
+**Rule:** the higher-risk actor yields. Clinic Group isolation always wins over SME speed. Never merge conflicting changes automatically.
+
+Log every conflict in `AUDIT.md` + one line in `DECISIONS.md` if it changes policy.
+
+---
+
+## 13. Caps per bot / loop (NEW — from Eric Siu Grok bots video)
+
+Hard limits. Not suggestions. When a cap is hit, the loop stops and pings `#alerts`.
+
+| Actor | Cap | Window | On breach |
+|---|---|---|---|
+| Director (emails drafted) | 20 | /day | Stop; `#alerts` |
+| Director (Linear tickets opened) | 30 | /day | Stop; `#alerts` |
+| Coder (deploys / merges) | 5 | /day | Stop; `#alerts` |
+| Coder (WP production updates) | 3 | /day | Stop; backup Gate re-check |
+| studio-promote | 1 run | /night | Skip if overlap |
+| Resolver | 1 run | /day | Skip if overlap |
+| studio-intake (external evals) | 5 | /day | Queue remainder |
+| n8n workflows touching clients | 50 runs | /day | Pause workflow; `#alerts` |
+| Any loop touching Clinic Group | 10 | /day | Stop; Operator ping |
+
+Caps are **per profile**, not global. Clinic Group caps are stricter than SME. Review caps monthly in the weekly retainer brief — raise only with Operator approval + DECISIONS.md entry.
+
+---
+
+## 14. Phase 2 — locked, not active
 
 - **Bingley** (bingley.ai) — Sales Engine + Company Research (Sully). Evaluate after first SME cycle. One A/B: Researcher vs Sully on one discovery. If Sully wins without new Claude Pro seat → `studio-company-research`. Cost: Claude Pro ~$20/mo — does not fit $100–150 AI budget now.
 - **Superdojo personas** — Dunford, Ogilvy, Voss. Max 3–4, Director only.
@@ -202,7 +240,7 @@ Skip only if the human says "just do it" — then log that override in DECISIONS
 
 ---
 
-## 13. What we explicitly do NOT do
+## 15. What we explicitly do NOT do
 
 - No Slack (Discord is better for this setup).
 - No Obsidian/GBrain for clients (isolation).
@@ -213,6 +251,8 @@ Skip only if the human says "just do it" — then log that override in DECISIONS
 - No agent payment cards.
 - No `@goshenemail.com` for clients.
 - No shared cross-runtime memory.
+- No auto-merge on conflict (human decides).
+- No uncapped loops (every actor has a hard cap).
 
 ---
 
