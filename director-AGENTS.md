@@ -1,5 +1,5 @@
 # Director AGENTS.md — VSUALWEB Studio
-**Version:** 1.9  
+**Version:** 1.10  
 **Owner:** Director profile  
 **Source of truth:** `~/Projects/_studio/AGENTS.md` (symlink to `~/.hermes/profiles/director/AGENTS.md`)  
 **Last updated:** 2026-09-12
@@ -62,7 +62,7 @@ File: `~/Projects/_studio/DECISIONS.md`
 
 ```
 ~/Projects/
-├── _studio/          ← Director only: AGENTS.md, MEMORY.md, AUDIT.md, registry.md, DECISIONS.md, skills/
+├── _studio/          ← Director only: AGENTS.md, MEMORY.md, AUDIT.md, registry.md, DECISIONS.md, skills/, traces/
 ├── clinic-group/     ← isolated Track B (Stripe live)
 ├── <client-slug>/    ← per SME: discovery/, design/, content/, src|wordpress/, support/
 └── ...
@@ -90,13 +90,19 @@ Secrets: n8n credential store + password manager. Never in node notes, never in 
 
 ---
 
-## 6. Resolver (was: daily brief)
+## 6. Resolver (was: daily brief) — a 9-part loop
 
-Cron 09:00, fresh session. Reads:
-- Linear (overdue, blocked, new)
-- `AUDIT.md` (last 24h events)
-- GBrain (patterns: "Monday = domain audit", "Pebro = invoice end of month")
-- Cloudflare / Vercel deploy pings via n8n
+Cron 09:00, fresh session. The Resolver is not a report — it is a **loop** with a learning store. It follows the 9-part schema:
+
+1. **Target state** — 0 overdue tickets, 0 unacked deploys, top 3 priorities clear.
+2. **Current state** — read Linear (overdue, blocked, new) + AUDIT.md (last 24h) + GBrain (patterns) + Cloudflare/Vercel pings via n8n.
+3. **Evaluate gap** — overdue count, blocked >2 days, duplicate work across clients.
+4. **Act** — open/close/move tickets, consolidate duplicates, draft the priority list.
+5. **Record trace** — write to `~/Projects/_studio/traces/resolver-YYYY-MM-DD.md`: what it tried, what worked, what failed, what it decided.
+6. **Learn** — read the last 7 traces before acting; reuse what worked, avoid what didn't.
+7. **Stop / escalate** — stop when gap = 0; escalate to Operator (Grill Me) anything needing a human decision.
+8. **Observation source** — Linear, AUDIT.md, GBrain, n8n deploy pings, Discord.
+9. **Action policy** — Allow (auto-close stale), Draft (priority list → Discord), Deny (no client email, no merge).
 
 Posts to Discord `#studio`:
 1. **Close** — tickets past due or blocked >2 days
@@ -104,7 +110,7 @@ Posts to Discord `#studio`:
 3. **Keep** — top 3 priorities for today
 4. **Ask** — anything needing a human decision (Grill Me)
 
-Name it **Resolver**, not "daily brief" — it's a decision, not a report.
+Name it **Resolver**, not "daily brief" — it's a decision, not a report. Cap: 1 run/day; skip if overlap.
 
 ---
 
@@ -124,7 +130,7 @@ With 20+ projects and the marketing-skills pack just cloned, Curator prevents sk
 - `studio-email` — draft only, Operator sends
 - `studio-launch` — pre-launch checklist + DNS Gate
 - `studio-discovery-call` — **Rob Fitzpatrick / The Mom Test**. Structured discovery interview before quote.
-- `studio-resolve` — Resolver cron logic
+- `studio-resolve` — Resolver cron logic (9-part loop, §6)
 - `studio-design-critique` — **Lenny critic loop** + Anthropic `design-critique`. Fresh-context screenshot review, score 1–10, stop at ≥9. (See §8b.)
 - `studio-company-research` — Phase 2 (Bingley Sully). Not active yet.
 - `studio-wp-audit` — weekly/monthly WordPress health (uptime, SSL, plugins, perf). Coder runs it; no separate WP agent.
@@ -199,6 +205,7 @@ When two agents or loops disagree, **execution stops** until a human decides. No
 | Two loops touch same client folder | Director | Lower-priority loop pauses |
 | Clinic Group vs SME memory bleed attempt | Operator (immediate) | Hard stop; AUDIT.md entry; investigate |
 | n8n workflow vs manual Operator edit | Operator | n8n run cancelled for that client |
+| Resolver vs studio-promote both touching `_studio/skills/` | Director | studio-promote yields; Resolver runs first |
 
 **Rule:** the higher-risk actor yields. Clinic Group isolation always wins over SME speed. Never merge conflicting changes automatically.
 
@@ -226,7 +233,22 @@ Caps are **per profile**, not global. Clinic Group caps are stricter than SME. R
 
 ---
 
-## 14. Phase 2 — locked, not active
+## 14. Learning store (traces)
+
+Folder: `~/Projects/_studio/traces/`
+
+Every loop writes a trace after each run: what it tried, what worked, what failed, what it decided. The Director reads the last 7 traces of a loop **before acting** — compounding intelligence, not one-off runs.
+
+- `resolver-YYYY-MM-DD.md` — Resolver decisions + outcomes
+- `promote-YYYY-MM-DD.md` — what was promoted/archived and why
+- `wp-audit-YYYY-MM-DD.md` — domains checked, issues found
+- `intake-YYYY-MM-DD.md` — external eval verdicts
+
+Traces are local, per-studio, never in GBrain, never shared across clients. They are the memory that makes loops improve over time.
+
+---
+
+## 15. Phase 2 — locked, not active
 
 - **Bingley** (bingley.ai) — Sales Engine + Company Research (Sully). Evaluate after first SME cycle. One A/B: Researcher vs Sully on one discovery. If Sully wins without new Claude Pro seat → `studio-company-research`. Cost: Claude Pro ~$20/mo — does not fit $100–150 AI budget now.
 - **Superdojo personas** — Dunford, Ogilvy, Voss. Max 3–4, Director only.
@@ -240,7 +262,7 @@ Caps are **per profile**, not global. Clinic Group caps are stricter than SME. R
 
 ---
 
-## 15. What we explicitly do NOT do
+## 16. What we explicitly do NOT do
 
 - No Slack (Discord is better for this setup).
 - No Obsidian/GBrain for clients (isolation).
@@ -253,6 +275,7 @@ Caps are **per profile**, not global. Clinic Group caps are stricter than SME. R
 - No shared cross-runtime memory.
 - No auto-merge on conflict (human decides).
 - No uncapped loops (every actor has a hard cap).
+- No loop without a trace (every loop writes to `traces/`).
 
 ---
 
