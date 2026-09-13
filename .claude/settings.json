@@ -1,0 +1,25 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cat memory.md"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "file=$(jq -r '.tool_input.file_path // empty'); base=$(basename \"$file\" 2>/dev/null); case \"$base\" in agency-platform-prd.md|agency-platform-sitemap-screens.md|vsualweb-platform-architecture.md) echo \"Blocked: $base is a locked spec-authority document (see CLAUDE.md). Ask Andreas before editing it directly.\" >&2; exit 2;; esac; exit 0"
+          }
+        ]
+      }
+    ]
+  }
+}
