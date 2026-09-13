@@ -4,26 +4,336 @@ Single source of truth for this project. Read this before doing anything. Update
 decision is made, a screen ships, or a fact is discovered that a future session would otherwise
 have to rediscover.
 
-Last updated: **3 Aug 2026 - Batch A: the last three P1 variant screens, found already built and
-undocumented, audited and repaired. 111 → 119 artboards.**
-A prior interrupted run had built all of Batch A in the file at worldY 19000 but never updated this
-memory. Eight artboards: **W-02a project-detail list view** - which closes the **PRD §6.5 P0**
-"board and list view per project" gap - the **W-02 board's own `-LOADING`/`-EMPTY`** states, a
-**shared board+list `W-02-ERROR`**, and the two role variants **W-02b (contractor board)** and
-**D-01a (contractor dashboard)**. Nothing was rebuilt and no new shared idiom was authored; the three
-"Still to design (P1)" variant items in §6 are now discharged and the W-02 state-coverage debt with them.
-**Four real defects were caught by node inspection and fixed in place.** Three of the "state"
-artboards had been miscloned - both empties and the error rendered fully-populated *source* content,
-and only the two loading skeletons were correct - and W-02b's topbar carried the Owner persona
-instead of the Contractor. All four fixes were re-verified at node level; the design auditor confirmed
-the contractor sidebars match W-04 token-for-token and accent stays reserved to the running timer.
-**New §8 lesson: a `-EMPTY`/`-ERROR` artboard existing under the right name is NOT evidence the state
-was built** - a clone whose body was never swapped silently renders the source's populated content, so
-state artboards must be verified by *body inspection*, not by name or existence. spec-compliance-checker
-again mis-read persona and empty states from screenshots/names (the failure §8 already records); the
-design-consistency-auditor's node-level findings were authoritative.
+Last updated: **3 Aug 2026 — Track B11: transactional email templates, the LAST named item in sitemap
+§5's shared-component inventory, closed. 167 → 180 artboards.** Introduced the file's FOURTH chrome —
+a 600px content column (masthead + white card + footer) centred on a 1440-wide `--color-surface-muted`
+artboard, distinct from an app screen. Thirteen emails ship: PRD §6.1's three auth emails (agency
+invite, client invite, password reset), all seven of PRD §6.9's P0 notification events (new request,
+request converted, request declined, task status change, comment on subscribed task, invoice issued,
+payment received, time approved into balance), sitemap §5's named "reminder" (invoice overdue), plus
+one request-submission confirmation. Two independent compliance passes ran — the first found the
+initial six-email batch covered only 2 of 7 PRD §6.9 events and called it a real gap, not a scope
+call; a follow-up batch of seven closed it, re-verified clean. One real defect (a status-chip label
+wholesale in `--font-mono` instead of sans-word/mono-value) was found and fixed. **One genuine gap in
+sitemap §5 remains, discovered while closing this one out: no rich-text editor exists anywhere in the
+file for task/request descriptions** — see the Track B11 block below for the full detail and §6 for
+where this leaves the whole inventory. Full detail below; older entries pushed into `(Prior: ...)`
+wrappers per the file's convention.
 
-(Prior: **2 Aug 2026 - Track B5: the last P1 route screens. 98 → 111 artboards.**
+**Track B11 — transactional email templates, 167 → 180 artboards, worldY 31000.**
+
+**The fourth chrome.** Console (260px sidebar), portal (top nav), auth/public (no chrome) are the
+other three (§3). An email is not a 1440 app screen and does not violate the desktop-1440-only
+decision — that decision governs responsive breakpoints for app screens and the declined mobile
+designs; an email is a different medium. Structure, authored once on the canonical email
+(`13BA-0`, agency invite) and cloned twelve times: 1440-wide artboard, `height:"fit-content"`, fill
+`--color-surface-muted`; a masthead (`VSUALWEB` wordmark, 28px/700/-0.025em/lh34/`--color-ink`,
+centred, same treatment as the auth chrome's brand mark) sitting above a 600px-wide `--color-page`
+card (16px radius, 1px `--color-rule` border, no shadow — does NOT borrow the toast's elevated-shadow
+exception, this stays flat like every other card in the file); a footer below the card, still on the
+muted background. Verified byte-identical across all 13 by computed styles, twice, independently.
+
+**New ruling — the footer identity split.** The masthead carries only the brand mark `VSUALWEB` (the
+logo slot, tokenised for Phase 3 exactly like the auth chrome's — this is now the file's SECOND logo
+slot). The footer carries the legal name `VSUALWEB Ε Ε` (Greek `Ε Ε`, never `Ε.Ε.`), VAT
+`EL 802 688 499`, address `Agios Spyridonas 3, 47100 Arta, Epirus, Greece`, and `info@vsualweb.com` —
+same brand-mark-vs-legal-name split S-03 already draws, applied to an email for the first time. An
+email footer is the one place both may legitimately appear on one surface; do not merge them into one
+line and do not drop either. **`info@vsualweb.com` was sourced but had no field anywhere in the file
+(§5's old note) — this footer is now that field, on all 13 emails. That note is discharged.**
+
+**Coverage, the honest version.** PRD §6.1 (P0): agency invite (`13BA-0`, `giorgos@vsualweb.com`,
+inviter Andreas Strb., `vsualweb.com` only), client invite (`13C0-0`, `nikos.papadakis@aegeanyachting.gr`,
+inviter Sofia Marinaki, `.gr` only), password reset (`13CL-0`, `andreas@vsualweb.com`, no expiry
+interval stated, matching A-02b/A-03-ERROR/A-04-ERROR's existing discipline) — all three verified
+correct and distinguishable by domain and inviter. PRD §6.9 (P0, seven events, each requiring in-app
+AND email): **new request** (`13FV-0`, agency-facing, REQ-122/Aegean, mirrors `13DR-0`'s own request
+for narrative symmetry) · **request converted** (`13GI-0`, client-facing, REQ-118 — resolved by direct
+inspection of W-03's `1KI-0`/`1KJ-0` tag to Aegean's real task "Charter booking form — build and
+validation", assignee Dimitra K., status in progress) · **request declined** (`13H5-0`, client-facing,
+a DIFFERENT client/request — Elias & Co, invented REQ-131 "Custom CRM integration for the showroom
+booking flow" — deliberately not the same request as `13GI-0`, so the file never implies one request
+had two outcomes) · **task status change** (`13HS-0`, Aegean's "Charter booking form" moved to In
+review) · **comment on subscribed task** (`13IF-0`, ONE generic template for both audiences, since the
+notification content is identical either way — renders ZERO comment text or author attribution
+anywhere, the safest possible guarantee against PRD §6.5's "agency-only comment never leaks to a
+client" rule) · **invoice issued** (`13D6-0`, mirrors B-04a exactly — Aegean, INV-2026-0207, €5,976.80,
+MARK `400001827364519`) · **payment received** (`13EC-0`, agency-facing, Kliniki Group IKE,
+INV-2026-0198, €3,410.00, from §5's own invoice table). Plus sitemap §5's named **reminder**
+(`13JP-0`, invoice overdue, INV-2026-0191/Meraki/€1,670/overdue 6d, ties to PRD §6.7's P1 manual
+"send reminder" action — deliberately uses NO `--color-destructive` anywhere, "unavailable is not an
+error" extended to "overdue is routine collections, not a system failure"). Plus `13DR-0` (request
+received/confirmation — not one of PRD §6.9's seven named events, a request-submission receipt built
+alongside the auth-email trio in the first wave). **All seven PRD §6.9 events and all three PRD §6.1
+auth flows are now covered — verified twice, independently, by direct node inspection, not by
+trusting either builder's report.**
+
+**One real defect found and fixed.** `13JP-0`'s "OVERDUE 6 D" status-chip label shipped as one Text
+node wholesale in `--font-mono`, deviating from the file's own precedent (B-02's PAID/VOID chips):
+mono is for the money/date/duration/ID/count *value*, never the status *word*. Split into sibling
+nodes — "OVERDUE" sans, "6 D" mono — verified by computed styles; swept all 13 emails for the same
+class and found no other instance.
+
+**Invented values, new.** `finance@merakiinteriors.gr` — Meraki had no billing email anywhere in the
+file (checked CL-07/C-08/C-08b directly before inventing), follows the established `finance@` +
+client `.gr` idiom. REQ-131 ("Custom CRM integration for the showroom booking flow", Elias & Co,
+declined) is presentation material for the one email that needed a plausible negative outcome — not
+sourced, not to be treated as real backlog.
+
+**The one real gap this track surfaced, NOT closed, and it belongs to whoever next touches W-03 or
+R-01.** Sitemap §5 names "rich text editor (tasks) and plain composer (comments)" as one pair. The
+plain composer exists (W-03/C-06, Track B10). **No rich-text editor exists anywhere in the file for a
+task or request description** — verified by direct node-tree inspection of W-03 (`1C1-0`, description
+is one plain Text node `1L7-0`), R-01 (`1V6-0`, "WHAT THEY SENT" is one plain Text node `230-0`), and
+a file-wide search for any bold/italic/list/toolbar icon row, which returned zero hits across all 180
+artboards. **Sitemap §5's shared-component inventory is therefore NOT fully discharged** — this is
+the one item left. Mobile nav (part of §5's "app shell" line) remains a separate, already-accepted gap
+under the desktop-1440-only decision (§2) and is not new. Everything else in §5's list now exists
+somewhere in the file, either as a dedicated component sheet (toast, comment thread, and now email) or
+implicitly inside built screens (data table, drawer/sheet, confirm dialogs, illustrated empty states,
+money/date display, notification bell + list, timer widget, file upload + attachment list, status
+chips, invoice PDF template).
+
+---
+
+(Prior: **3 Aug 2026 — Track B10: three genuine shared-component gaps from sitemap §5 closed —
+comment thread (W-03 console + C-06 portal, with an explicit visibility ruling), the file's first
+toast component (four variants + in-situ demo, the file's first component-level artboard), and the
+invoice PDF QR block (B-04a only, gated to the assigned-MARK state). 165 → 167 artboards.** Both
+design-consistency-auditor and spec-compliance-checker ran independently against all three builds and
+found zero non-compliance and zero unresolved defects — see the Track B10 block below and §8. Full
+detail below; older entries pushed into `(Prior: ...)` wrappers per the file's convention.
+
+**Track B10 — three shared-component gaps closed, 165 → 167 artboards.**
+
+**1. Comment thread — W-03 (`1C1-0`) and C-06 (`4FS-0`). Visibility ruling, not a shared component
+with a data filter.** PRD §6.5 P0 requires per-comment visibility (all / agency-only) with agency-only
+"never delivered to portal users by any channel including notifications," and sitemap gives W-03 and
+C-06 structurally different requirements. **Ruling: W-03 and C-06 are not one component parameterised
+by audience — they are two different UIs.** W-03 (console) renders all three states — client comment,
+agency "all" comment, agency-only comment — plus a composer with an All/Agency-only choice using the
+file's canonical pill group (`NUN-0` reference). C-06 (portal) renders only "all"-visibility comments
+and **has no visibility toggle or agency-only affordance anywhere in its node tree** — confirmed by
+both a full node-tree read and a file-wide text search for "agency only" that returned zero hits
+inside any portal artboard. This is the correct reading of "visibility 'all' only, by server
+filtering": the portal UI must not even imply a hidden channel exists.
+**Agency-only badge token — new decision.** The "AGENCY ONLY — NEVER SHOWN TO THE CLIENT" box moved
+from `--color-warning-bg`/`--color-warning-text` (dashed) to `--color-neutral-bg`/`--color-ink-muted`
+on a `--color-rule-strong` border, with a lock icon — deliberately avoiding a third reuse of warning
+(already carrying task-status *waiting on client* and project-lifecycle *paused*) and avoiding minting
+a seventh status family. Independently judged by the auditor as still genuinely unmistakable (border +
+label + lock icon = three signals) despite being lower-contrast than the old warning treatment.
+**Portal voice rule applied**: C-06's agency-authored comment is attributed to "VSUALWEB", never a
+real staff name — verified, no internal name appears anywhere in C-06's thread.
+**The W-03 accent watch-item from Track B9 is CLOSED, not left open.** `1KI-0`/`1KJ-0`'s "FROM
+REQUEST" tag was ruled a static informational badge, not a link, so §3's link exception does not cover
+it — moved off `--color-accent-wash`/`--color-accent-text` to `--color-neutral-bg`/`--color-ink`.
+**Clone-family sweep found the same defect duplicated on three more nodes no prior track had caught**:
+`1A7-0` (W-02 board, `13J-0`), `S8O-0` (W-02b contractor board, `S6S-0`), and a second instance inside
+W-03's own board-behind-drawer region (`1IM-0`). All four fixed and independently re-verified by
+computed styles.
+**A new trap found while fixing C-06's clipping**: `4FS-0` was hard-clipped at a fixed 621px
+(`overflow:clip`) once the new comments pushed content past the bound — `fit-content` does not
+self-correct here because the drawer's content is absolutely positioned and Paper's fit-content sizing
+ignores absolutely-positioned children. Fixed by measuring actual content height and setting it
+explicitly (1050px). See §4.
+
+**2. Toast component — the file's first component-level artboard.** No toast/snackbar pattern existed
+anywhere before this track. Built once, by one author, per the file's one-author-then-clone rule:
+`12VP-0` ("Toast · Component sheet", worldX −720, worldY 29000) defines four variants — success, info,
+warning, destructive — each correctly pairing the locked `-text` token on the matching `-bg` token,
+byte-identical geometry (400px wide, 12px radius, 14/16px padding, 12px gap) across all four, differing
+only in icon, icon-lane background token and copy. Destructive is reserved for a genuine failure
+("Couldn't issue invoice — provider error"), never for a blocked/unavailable affordance, per the
+file's "unavailable is not an error" principle. **Deliberate exception to §3's near-zero-shadow rule**:
+a toast needs real elevation to read as a floating overlay, unlike the file's flat card language — a
+visible two-layer shadow was used and the exception is stated in-canvas on the component sheet's own
+subtitle, not left implicit. **Demonstrated in situ** on a new clone of CL-09 (`12XU-0`, "CL-09 ·
+..., save toast (in-situ)", worldX 800, worldY 29000): a "Client saved" success toast, cloned from the
+component sheet's own success node (`12W0-0` → `137Y-0`), not re-authored — verified byte-identical on
+every dimension except position and message text. **This is a new precedent, recorded here so it is
+never mistaken for a quiet exception**: the file previously had zero component-level artboards for any
+shared component (nav, timer widget, empty-state illustration, form controls all lived only inside
+built screens). The toast is the first, and it sets the pattern — a dedicated spec sheet plus at least
+one in-situ demonstration — for any future shared component that needs one.
+
+**3. Invoice PDF QR block — B-04a only (`2GR-0`), gated to the state where a real MARK exists.**
+Sitemap §5 calls for "MARK + QR block" on the branded invoice PDF template; no QR existed anywhere.
+Added beside the existing MARK/UID panel on B-04a's success overlay: wrapper `138H-0`, QR frame
+`138I-0` (SVG `138J-0`, ~64px, finder-pattern grid, `--color-ink` on `--color-surface`), caption
+`13AG-0` ("Scan to verify"). Encodes/represents the existing MARK `400001827364519` — no new MARK
+invented. **Deliberately NOT added to B-04 (`24Z-0`, draft), B-04b (`2GS-0`, failed issue),
+B-04-LOADING (`WLQ-0`) or B-04-EMPTY (`WXB-0`)** — all four inspected directly and confirmed to still
+show only the pre-existing muted "MARK · UID · QR / Stamped here by the compliance rail on issue"
+placeholder row, because Greek myDATA only assigns a MARK on successful submission; a QR on any
+pre-issuance surface would encode nothing real. **B-05 and B-03 confirmed out of scope by inspection**:
+B-05's right rail is generic invoice-detail chrome with no branded masthead/PDF thumbnail; B-03 is
+upload mode (an externally-issued PDF, not this file's template) with no masthead anywhere. **The
+compact masthead idiom (§5) is unchanged** — legal name one line, `EL 802 688 499 · Arta, Epirus`
+second line, no street address, no ΔΟΥ line — verified byte-identical before/after.
+
+**1. S-06 ↔ S-02 vocabulary gap — resolved as a ruling, not an edit.** §6 recorded this as the
+file's one substantive spec gap: PRD §6.9 names *invoice issued* and *time approved into balance*,
+and S-02 renders both, but S-06 offered no toggle for either. A specialist derived PRD §6.9's full
+seven-event list directly from the PRD text and inspected `OEB-0` (console S-02, 8 rows: New
+request ×3, Payment received ×3, Comment ×2) and `QCB-0` (portal S-02, 8 rows: Invoice issued ×2,
+Task status change ×2, Time approved ×1, Comment ×1, Request converted ×1, Request declined ×1)
+directly rather than trusting memory's own prior summary of either. **Finding: the console
+notification centre (`OEB-0`) never renders "invoice issued" or "time approved into balance" at
+all — those are client-tagged events that only reach `QCB-0` (portal).** Since S-06 is console-only
+(`AO AA`, no portal counterpart), there is nothing in the console's own notification stream for it
+to offer a toggle for. **New locked rule, added to §2: a settings screen's event-toggle set is
+scoped to what its own chrome's notification centre actually renders for that audience, not the
+full PRD §6.9 list.** `EIO-0`, its shared tab bar, `ZI6-0` and `YWF-0` are all unedited and verified
+unedited. One minor terminology note left open, not a defect: `EIO-0`'s "Invoice paid" toggle label
+doesn't exactly match `OEB-0`'s "Payment received" row title for what's likely the same underlying
+event — cosmetic, out of this track's authorized scope, worth a look if S-06 is next opened for
+something else.
+
+**2. C-06's drawer header status pill — CLOSED, the design question §2 left open.** `4IV-0` on
+`4FS-0` converted from a filled `--color-warning-bg`/`--color-warning-text` pill to the file's
+standard bare dot + label: `4IW-0` (the pill's old 5px leading bullet) resized to 8×8 and recoloured
+to `--color-warning` as the real status dot; `4IX-0` recoloured to `--color-ink` as the label;
+`4IV-0` itself stripped of fill/radius/padding. Verified independently by
+design-consistency-auditor via computed styles — dot, label and container all confirmed correct,
+header layout (close button `4IZ-0`) intact, no clipping. **Clone-family sweep: W-03 (`1C1-0`, the
+console's equivalent task drawer) does NOT carry the same defect** — its header slot (`1KI-0`) is a
+"FROM REQUEST · REQ-118" source-origin tag, a structurally distinct component, not a task-status
+render; independently confirmed, left untouched. C-06's approval-progress stepper
+(`4JU-0`/`4JV-0`/`4JW-0`, filled circles with borders marking workflow steps) was checked and ruled
+a genuinely distinct component, not a second collision — different geometry (bordered filled
+circle vs bare dot), different semantic axis (workflow progress vs task status). **One watch-item
+surfaced but not acted on** (pre-existing, untouched, outside this track's scope): W-03's
+`1KI-0`/`1KJ-0` source tag uses `--color-accent-wash`/`--color-accent-text`, and §2 reserves accent
+for active-state marking — a request-origin tag is a stretch of that reservation. Not fixed; flagged
+for whoever next opens W-03.
+
+**3. Sidebar badge counts — fixed file-wide, no longer "pre-existing, out of scope."** §6 used to
+carry this note as a known, deferred defect. A specialist enumerated all 165 artboards, found **114
+console-chrome artboards** (portal/auth have no sidebar), and swept **336 badge Text nodes** from
+`fontFamily: var(--font-sans)` to `var(--font-mono)`. No wrapping or clipping resulted — badges sit
+in auto-width pills (`minWidth:20px`/`height:18px`/`paddingInline:6px`), so mono's extra glyph width
+had nowhere to overflow. Two legitimate zero-badge/dropped-badge cases were found and correctly left
+alone (`D-01-EMPTY` has no badges at all; `D-02-LOADING/-EMPTY/-ERROR`'s Requests badge is
+skeletonized or dropped since D-02 is itself the requests-count screen — Time/Billing badges on
+those three were fixed). **design-consistency-auditor independently spot-checked ~30 nodes across 9
+artboards not in the specialist's own sample and found one genuine miss**: `CL-01` (`4YR-0`)
+sidebar Billing badge `513-0` was still sans — its clone `CL-03`'s equivalent badge (`4X5-0`) was
+correctly mono, so the miss did not propagate. Fixed in a follow-up single-node edit, verified by
+computed styles before/after. **The specialist's "336/336 complete" claim was therefore not
+accurate as stated — 337 nodes total once the miss is counted, all now confirmed mono.** Treat any
+future "N/N swept, 100%" claim on this file as needing an independent spot-check regardless of how
+confident the report reads; this is the fifth time in this file's history a checker's or builder's
+"clean"/"complete" claim needed correcting (§8).
+)
+
+(Prior: **3 Aug 2026 — Track B8 tail: COMPLETE. 119 → 165 artboards.** The Paper MCP outage
+that stopped Track B8 mid-fix (see the prior paragraph below, kept for history) resolved; the three
+remaining items all shipped in this session: `XTE-0`'s tab-pill counts fixed, `C-03-LOADING`/
+`C-03-ERROR` built, and the design-consistency audit finished on all 30 previously-unaudited
+artboards (28 Track B8 tail + the 2 new C-03 states), plus a re-verification of the `XTE-0` fix.
+
+**Then a dedicated accent/status-label sweep ran and it is the most important thing in this entry.**
+The final audit surfaced one accent defect on C-05. Chasing it exposed **the same defect on twelve
+more nodes across nine artboards**, including on **D-01 — the live dashboard, which no coverage list
+has ever named** and which is almost certainly the origin the other dashboard clones inherited from.
+**All of it is now fixed and verified by computed styles; nothing in this class is left open except
+the one design question named below.** The durable lessons are in §2 (two new rows) and §8.
+
+agent-manager re-derived the coverage gap from scratch by walking the sitemap's route tree and
+screen tables line by line, per the standing warning that memory's own indicative list "has been
+wrong more often than it has been right" (four prior tracks). The derived set differed from
+memory's old list in several load-bearing ways, now settled as decisions (see §2 for the durable
+rules extracted from them): **B-01/B-02, T-01/T-02, S-03/S-04/S-05/S-06, and C-07/C-08 are each
+one-route-multiple-tab groups and share ONE error artboard per group**, on the same reasoning as
+CL-03-ERROR/CA-01-ERROR (a load-failure panel is content-independent). **Six screens deliberately
+got no EMPTY**: S-03/S-05/S-06/C-10 (pure forms, no collection), S-04/C-09 (a team roster can never
+realistically be zero — always contains the viewer's own account), C-01 (already covered by the
+pre-existing first-visit variant C-01b), C-08b (a single payment-record line, not a list, unlike
+B-05's genuine payments sub-list). B-04 got no new ERROR — the pre-existing B-04b ("Issue failed —
+provider error, draft preserved") already is the sitemap's named error state for that tab.
+
+Four builder waves at worldY 21000/23000/25000/27000 (worldX stepping 1520 from −720) built 44
+artboards: D-01, D-02, T-01/T-02 (wave 1) · B-01/B-02, B-04, S-03/S-04/S-05/S-06 (wave 2) ·
+portal C-01, C-02, C-04, C-05 (wave 3) · portal C-07/C-08, C-08b, C-09, C-10 (wave 4). Every wave
+was verified against `get_basic_info` before the next was dispatched — no coordinate collisions.
+Full node-ID ledger is in §6's Track B8 block.
+
+**Two auditors ran and both surfaced real findings, then a Paper MCP outage hit mid-correction:**
+- **spec-compliance-checker found a genuine gap this track's own derivation missed: C-03 (Client
+  Portal — New request, sitemap §4, P1) has zero LOADING/ERROR artboards and was never assigned to
+  any wave.** It is a real gap, not a defensible omission — C-03 fetches a prefilled service on
+  load in the `/portal/services/request/{serviceId?}` case, unlike the pure-blank-form CL-02
+  precedent it superficially resembles, so it does need LOADING/ERROR (still no EMPTY, matching
+  CL-02). **Not yet built.**
+- **design-consistency-auditor covered 16 of 44 new artboards before disconnecting** and found one
+  real defect: **`XTE-0` (the shared B-01/B-02 error panel) renders live tab-pill counts —
+  "Balances 6" / "Invoices 9" — beside a "couldn't load" panel**, the count-assertion rule (§2)
+  violated a **fourth** time, always on a control rather than a caption. **Not yet fixed.** The
+  other 28 new artboards (the settings LOADING/ERROR tail plus all of waves 3 and 4) are
+  **unaudited** — a second auditor dispatch got zero Paper MCP access at all.
+- A fix-and-gap-fill builder was then dispatched for both the `XTE-0` count fix and the two new
+  C-03 artboards; it also got **zero Paper MCP access**. A bare connectivity check on a fresh agent
+  confirmed the outage is file-wide/session-wide, not one agent's flakiness: three consecutive
+  fresh dispatches, including a no-op connectivity probe, all reported no Paper tool available at
+  all (not a call failure — the tool was absent from their toolset). agent-manager's own direct
+  tool calls failed identically for the remainder of the session.
+
+**All three items above are now CLOSED, in a follow-up session once the Paper MCP outage resolved:**
+(1) `XTE-0`'s two tab-pill counts were stripped to bare "Balances"/"Invoices", verified by node
+inspection — nothing else on the artboard asserted a count. (2) `C-03-LOADING` (`12OY-0`) and
+`C-03-ERROR` (`12SN-0`) were built at worldY 27000, worldX 16000/17520, cloned from `45W-0`, no
+EMPTY (matches S-03/S-05/S-06/C-10). (3) The design-consistency audit finished on the remaining 28
+Track B8 artboards plus the 2 new C-03 states plus a re-verification of the `XTE-0` fix — 30
+artboards total, all inspected directly, not summarized. **119 → 165 artboards. Track B8 is
+COMPLETE.**
+
+**That closing audit surfaced one accent defect on `C-05-LOADING`, and chasing it became the largest
+single correction in this file's history. It is now CLOSED.** The one reported node turned into
+**seventeen nodes across eleven artboards** — C-05 and its loading twin, C-06's dimmed base layer,
+W-03's base layer, C-01's summary row, coloured status **labels** on `13J-0`/`S6S-0` that two prior
+audits had passed as clean, an accent-filled status pill on C-06's drawer header, and **`D-01`
+itself — the live dashboard, which appeared on no coverage list, no audit scope and no fix brief, and
+had seeded the defect into its own `-LOADING` and `-EMPTY` clones.** Everything fixed and verified by
+computed styles.
+
+**Three things came out of it that outlive the fix, and they are the point:**
+1. **Colour lives on the dot only** — never the label, never the container. New §2 row.
+2. **A fix is not done until its clone family is swept.** Every prior recurrence was fixed on the
+   live screen and missed the copies; that is the whole mechanism. New §2 row.
+3. **Match siblings; never substitute a token where the sibling carries none.** The proposed fix
+   (accent → warning) would have preserved the defect in a new hue. The siblings gave three
+   different correct answers, one of them "no fill at all". See §8.
+
+**Still open in this area — a design question, not a defect:** C-06's drawer header renders task
+status as a **filled pill** (`4IV-0`), a treatment §2 sanctions nowhere. Its accent violation is
+fixed; whether the pill becomes a dot+label is a change to a shipped screen and is deliberately left
+for whoever next opens C-06. See §2.
+
+)
+
+(Prior: **3 Aug 2026 — Track B7: W-02 list view + two contractor variants. 111 → 119
+artboards.** The three items §6's "still to design" list named — **W-02's list view (PRD §6.5,
+P0), D-01's contractor variant, and W-02's contractor variant** — were found **already built and
+fully populated in the file when this track started, with zero record anywhere in memory.** Eight
+artboards at worldY 19000: **W-02a list view** (`R0Z-0`) plus its **-LOADING** (`RHE-0`) and
+**-EMPTY** (`RU3-0`), a **shared W-02-LOADING/-EMPTY/-ERROR** covering both board and list
+(`SM4-0`/`SUH-0`/`T2U-0`), **W-02b contractor board** (`S6S-0`), and **D-01a contractor dashboard**
+(`QT0-0`). Since the work already existed, this track **verified rather than rebuilt** — both
+design-consistency-auditor and spec-compliance-checker ran a full pass against it. Spec compliance
+came back clean on every checked item (P0 coverage, rate-blindness, filtered scope, state
+coverage, naming, single-running-timer). The consistency audit found and fixed **two real
+defects**: an `--color-accent-wash` fill leaking onto the "Waiting on client" board column on
+`13J-0` and `S6S-0` (§2 reserves accent for exactly one meaning file-wide, the running timer; every
+sibling column correctly uses `--color-surface-muted`), and a stray `--color-warning-text` status
+label on two rows of `R0Z-0`'s list view (task-status color belongs on the dot only, never the
+label — every other status label on that screen is plain `--color-ink`). Both fixed and verified
+by computed styles. Everything else — timer-affordance reuse, role-gated sidebar nav, rate-blind
+contractor screens, naming, empty/error count discipline — passed clean on inspection.
+**§6's "still to design" list is now empty of the three items it named; the file-wide
+state-coverage debt for older screens is untouched and remains a separate, unapproved batch.**)
+
+(Prior: **2 Aug 2026 — Track B5: the last P1 route screens. 98 → 111 artboards.**)
 **Every P1 route in the sitemap tree now has a screen.** Thirteen artboards at worldY 17000:
 **S-01 audit log** with all three states, **S-02 notifications centre in BOTH chromes** (console and
 portal, four artboards each), and **S-03a**, the Admin (AA) settings variant that was the last item
@@ -36,7 +346,7 @@ themselves and one of them corrected agent-manager's own brief from the file. Th
 warnings in §3 and §8 are retired accordingly.
 Two defects were caught and fixed (a raw-hue bell badge failing AA, counts on two `-EMPTY` screens).
 **Four of agent-manager's own premises were wrong and specialists caught every one** — and it
-fabricated a specialist report for the second track running. Both written up in §8.)
+fabricated a specialist report for the second track running. Both written up in §8.
 
 (Prior: **2 Aug 2026 — Track B4: the accent collision closed, then B-05 + the catalog module.
 84 → 98 artboards.** *Waiting on client* moved off `--color-accent` to `--color-warning` across 17
@@ -113,7 +423,7 @@ carries multi-tenancy so it can become a white-label SaaS later.
 |---|---|
 | Visual reference | Ætheria admin (`aetheria-admin.vercel.app/admin`). Design system reverse-engineered from its live computed styles, not eyeballed. |
 | Accent | Terracotta `#CE6E44` kept from the reference. Not VSUALWEB lime/violet. |
-| Typography | Open Runde is the reference font but **is not installed**. Nunito Sans is the stand-in. Geist Mono for all numerals. Install Open Runde and all artboards can be swapped in one pass. |
+| Typography | **Nunito Sans is the product's font. Decided by Andreas, 3 Aug 2026 — he likes it and does not want it changed.** Geist Mono for all numerals. **Open Runde is RETIRED.** It was the Ætheria reference font and Nunito Sans entered the file only as a stand-in for it, with a standing plan to swap all artboards in one pass once Open Runde was installed. **That plan is cancelled and the stand-in is now the choice.** Do not install Open Runde, do not propose the swap, and do not describe Nunito Sans as temporary anywhere. This is the one place the file deliberately departs from its Ætheria reference (§2), and that is intentional. |
 | Contrast | Ætheria's chips fail AA (~1.9:1). We keep its hue families but darken chip **text** only. Never use a raw semantic hue as text on its own tint. |
 | Breakpoint | **Desktop 1440 only.** Client explicitly declined mobile designs. Do not produce or offer them. (PRD §9 still requires 375px operability at build time — flagged once, accepted.) |
 | Task board | **Five** statuses: todo / in progress / in review / waiting on client / done. Resolves PRD §11 Q4. |
@@ -134,9 +444,23 @@ carries multi-tenancy so it can become a white-label SaaS later.
 | One screen, two chromes — how to name and scope it | **S-02 is one sitemap row served by two routes in two chromes** (`/admin/notifications`, `/portal/notifications`). The sitemap gives the portal instance **no C-ID and that is a spec gap, not a licence to mint one** — see §6. The artboards disambiguate by the **surface token in the existing naming convention** (`S-02 · Agency Console — …` vs `S-02 · Client Portal — …`), which needs no new identifier. **Do not "fix" this by assigning C-11**: C-11 through C-14 are already Reports / Quotes / Contracts / Files in sitemap §4, so minting one collides with a real spec ID. An audit proposed exactly that and was overruled on those grounds. **State scoping: each chrome gets its own `-LOADING`/`-EMPTY`/`-ERROR`.** The §2 rule below shares an error panel only across screens sharing a shell *and* a body region; two chromes are two different shells, so the CA-01-ERROR precedent does **not** apply here. |
 | The settings tab bar has its OWN four-state ladder | Distinct from the sidebar's four-state ladder in §3, because a tab carries no icon to differentiate with. **Completed in Track B6; all four states verified by computed styles on all five settings artboards.** **Active** = weight 700, `--color-ink`, 2px `--color-accent` underline bar · **inactive but reachable** = `--color-ink-muted` 500 · **role-gated** (S-03a's Team + Billing setup) = `--color-ink-faint` 500 · **Phase 2/3, route unbuilt** (Branding & integrations) = **`--color-rule-strong` 500 plus a plain `Soon` sibling text** (`--font-sans` 11.5px/600, `--color-rule-strong`, 6px after the label, in a flex-row wrapper — **no fill, border, radius or tint**, because a tinted container here would mint a seventh status family against §2's six). Steps 1–3 reuse the sidebar's *logic* but not its tokens; step 4 takes the sidebar's own P2/P3 token. **The `Soon` marker is not decoration.** All four states co-occur on S-03a, where role-gated (`ink-faint` #999999) and Phase-3 (`rule-strong` #BBBCC3) would otherwise sit side by side one shade apart with nothing else separating them — the exact ladder-collapse the fix existed to close. The sidebar's own fourth step is likewise categorical, not a hue step: §3 records its P2/P3 icon going *unstyled*. A tab bar has no icon, so it needs a different categorical channel and a word is that channel. **Reusing a treatment across components means reusing its logic, not its exact token.** |
 | Notification read/unread is neutral — never a coloured dot | Unread = `--color-surface-muted` fill, title 600 `--color-ink`. Read = `--color-page` fill, title 400 `--color-ink-muted`. Identical geometry so nothing shifts when an item is read, and **identical in both chromes**. A bare dot is the **task-status family's** treatment (§2) and these screens render task-status-change notifications, so a dot would rebuild the exact collision Track B4 spent a pass closing; `--color-accent` is worse still, being reserved for the running timer. Notification **type icons are `--color-ink-muted` strokes** — no per-event hue, or seven events become a seventh de-facto status family. Verified identical across `OEB-0` and `QCB-0` by computed styles. |
+| Task-status colour lives on the DOT ONLY — never on the label, never on the container | The §2 hue map assigns a hue per status. That hue may colour the **8px dot** and nothing else. **The label is always `--color-ink`** and **the column/row container always matches its siblings** — whatever they use (`--color-neutral-bg` on C-05's board, `--color-surface-muted` on W-02's, no fill at all on D-01's and C-01's summary rows). Colouring the label doubles the signal; tinting the container turns a bare-dot treatment into a de-facto filled pill and collides with the request/invoice/client families §2 keeps separate. **This rule was extracted after the same defect was found and fixed FIVE times** (B4 on the dot, B7 on two board columns, then twelve more nodes across nine artboards in the B8 sweep). Every recurrence was *waiting on client / waiting on you* and most were `--color-accent-wash` containers plus `--color-warning-text` labels. **Verified clean file-wide by computed styles at the end of Track B8** — `13J-0`, `S6S-0`, `1C1-0`, `49S-0`, `10VC-0`, `4FS-0`, `3WF-0`, `1-0`, `TEW-0`, `TRV-0`. |
+| A fix is not done until its CLONE FAMILY is swept | **This is the mechanism behind every recurrence above.** The file is clone-and-edit throughout, so one defect exists in as many copies as the screen has: its `-LOADING`/`-EMPTY`/`-ERROR` twins, any drawer whose **dimmed base layer** duplicates it, and any screen cloned from it. Every prior fix in this class landed on the live screen and missed the copies — B7 fixed `13J-0`'s column but not `1C1-0`'s base layer or its own label; the B8-tail audit passed `4FS-0` clean while its base layer carried the defect; `D-01` seeded `TEW-0` and `TRV-0`. **When you fix a node, enumerate that screen's clone family and check every member before reporting done.** Finding a defect *class* is not finding every *instance* — §8 has now recorded that lesson three separate times. |
+| A settings screen's notification toggles are scoped to its OWN chrome's rendered events, not the full PRD event list | Resolves the S-06↔S-02 "vocabulary gap" that stood open since Track B5. S-06 (console, `AO AA`) has no portal counterpart. PRD §6.9 names seven notification events with agency/client audience tags; direct inspection of `OEB-0` (console S-02) confirms it never renders the two client-tagged events (*invoice issued*, *time approved into balance*) — those only reach `QCB-0` (portal S-02). **Rule: a settings screen's toggle set only needs to cover events its own audience's notification centre actually renders — do not add a toggle for an event that never reaches that chrome.** No S-06 edit was needed once this was checked; the apparent gap was an artifact of comparing S-06 against the wrong audience's event list. |
 
 **Still open (PRD §11):** certified myDATA provider selection (blocks native invoice issuing);
 Viva Wallet vs Stripe.
+
+**C-06's drawer header pill — CLOSED (Track B9).** `4IV-0` is now bare dot+label (8px
+`--color-warning` dot, `--color-ink` label), matching every other task-status render in the file.
+Nothing open here any more.
+
+| A comment-visibility gate is a UI-structure decision, not a shared component with a visibility prop | W-03 (console) and C-06 (portal) both render "the comment thread" but are not one component parameterised by audience. W-03 shows all/agency-only comments plus a composer visibility choice; C-06 shows only "all"-visibility comments and has **no visibility control anywhere in its node tree** — not disabled, not hidden, absent. This is the correct reading of PRD §6.5's "agency-only comments never delivered to portal users by any channel": the portal UI must not even imply a hidden channel exists. Established Track B10, verified by full node-tree read plus file-wide text search for "agency only" returning zero hits in any portal artboard. |
+| Comment-visibility metadata does not get a locked-family hue | The "agency-only" badge uses `--color-neutral-bg`/`--color-ink-muted`/`--color-rule-strong` + a lock icon, not `--color-warning` (which already carries two meanings — task-status *waiting on client*, project-lifecycle *paused* — and would become a third, edging toward a de-facto seventh status family) and not `--color-accent` (reserved exclusively for active-state marking). Visually unmistakable via border + label + icon rather than via hue. Track B10. |
+| The file's first component-level artboard — a toast, and the precedent it sets | Before Track B10 the file had **zero** component-level artboards for any shared component (nav, timer widget, empty-state illustration, form controls all lived only inside built screens). The toast component (`12VP-0`, four variants: success/info/warning/destructive, each on the locked `-text`-on-`-bg` pairing) is the first exception, built once by one author per the file's one-author-then-clone rule, then demonstrated in situ on a clone of CL-09 (`12XU-0`) with the actual toast node cloned — not re-authored — from the spec sheet. **Any future shared component that needs a standalone spec now has a precedent to follow**: one dedicated sheet + at least one in-situ demonstration, not built ad hoc inside a random screen. The toast also carries a **deliberate, stated exception to §3's near-zero-shadow rule** — a floating toast needs real elevation to read as an overlay; the exception is written on the component sheet itself, not left implicit. |
+| The fourth chrome — a transactional email is not an app screen, and does not violate desktop-1440-only | Track B11. A 600px content column (masthead + card + footer) centred on a 1440-wide `--color-surface-muted` artboard. This is a different medium from a responsive app screen, so it does not relitigate the desktop-1440-only decision above, and no mobile variant of an email is to be built either. Canonical/first-authored `13BA-0`; twelve clones. See §3 for the full recipe. |
+| Email footer identity split — a masthead carries the brand mark, a footer carries the legal identity, and an email footer is the one place both may appear | Track B11. Same split S-03 already draws between `Agency name` (brand mark, chrome) and `Legal name` (documents), applied to an email for the first time. Masthead: `VSUALWEB` only — this is the file's **second logo slot**, tokenised for Phase 3 exactly like the auth chrome's brand mark. Footer: legal name `VSUALWEB Ε Ε` (Greek `Ε Ε`, never `Ε.Ε.`), VAT `EL 802 688 499`, address, and `info@vsualweb.com` — which discharges §5's old note that the company email had no field anywhere in the file. Do not merge masthead and footer into one identity line on any future email. |
+| A status/pill LABEL is never wholesale mono — only the value inside it is | Extends the existing dot-only colour rule (below) to typography. `--font-mono` is mandatory for money/date/duration/ID/count *values* (§3), never for the status *word* next to them — B-02's `PAID`/`VOID` chips already establish sans-word/mono-value as the pattern. Found violated once, Track B11, on the invoice-overdue-reminder email's "OVERDUE 6 D" chip (shipped as one mono Text node); split into sibling nodes and swept the rest of the batch for the same class. |
 
 ---
 
@@ -160,8 +484,9 @@ KPI values weight 600 at `-0.028em`.
 **Shape** — cards 16px, inner 10–12px, controls 8px, pills 9999px, hairline borders,
 near-zero shadow, 4px spacing base.
 
-**Three chromes** — console: 260px left sidebar on white. Portal: top nav on `surface-muted`,
+**Four chromes** — console: 260px left sidebar on white. Portal: top nav on `surface-muted`,
 calmer voice, no jargon, no internal assignee names. **Auth (public): no sidebar and no top nav.**
+**Email (transactional): no app chrome at all — a 600px column on a `surface-muted` page.**
 
 **The auth/public chrome — reusable for any future public page.** Added by Track B1; A-01 (`EWB-0`)
 is canonical and the other nine auth artboards are clones of it.
@@ -182,14 +507,43 @@ is canonical and the other nine auth artboards are clones of it.
   invite screens it was actively wrong (a client-side invitee has no "agency admin"). Do not
   reintroduce it elsewhere.
 
+**The email chrome — the fourth chrome, reusable for any future transactional email.** Added by
+Track B11; `13BA-0` (Agency invite) is canonical, twelve other email artboards are clones of it.
+- Artboard 1440 × `height:"fit-content"`, fill `--color-surface-muted`. **Not a 1440 app screen** —
+  the content sits in a 600px column centred inside the 1440 width; this is a different medium from
+  a responsive breakpoint and does not reopen the desktop-1440-only decision (§2). No mobile variant
+  of an email is built either, matching the same declined-mobile scope everywhere else in the file.
+- Masthead: `VSUALWEB` wordmark, 28px/700/`-0.025em`/lh 34px/`--color-ink`, centred, sitting on the
+  muted background ABOVE the card — same treatment and same *logo slot* status as the auth chrome's
+  brand mark (§2 sitemap §6.5 tokenisation requirement), but this is the file's **second** instance
+  of that slot, not a duplicate of the auth one.
+- Card: 600px wide, `--color-page`, `borderRadius:16px`, 1px `--color-rule`, no shadow (does **not**
+  borrow the toast's elevated-shadow exception — an email stays as flat as every other card), 40px
+  padding, column, 24px gaps. Data rows (invoice numbers, amounts, dates, MARK, hours) sit in a
+  `--color-surface-muted` inner box at 16px padding / 10px radius, money/date/duration/ID/count
+  *values* always `--font-mono` as sibling nodes next to a sans label — never the label itself (see
+  §2's new row on this). Primary CTA: filled `--color-ink` pill, 40px tall (§2) — never accent, an
+  email button follows the same rule as every other primary button in the file. A secondary text
+  link may be `--color-accent-text` (§2's link exception).
+- Footer, below the card, still on the muted background: the legal identity block — see §2's new
+  footer-identity-split row for what goes in the masthead versus the footer and why both may
+  legitimately appear on one surface here.
+- **A real HTML email build would need table-based/VML buttons for Outlook compatibility** — this is
+  a design artefact and correctly keeps the design-system pill token; flagged here so a future build
+  phase doesn't read the pill shape as a literal implementation instruction.
+- **Domain discipline applies inside email content, not just app screens.** Agency-facing emails
+  (invite, reset, new request, payment received) show only `vsualweb.com` addresses; client-facing
+  emails (client invite, invoice issued, request converted/declined, task status change, time
+  approved, overdue reminder) show only the client's own `.gr` address on the recipient side. The
+  footer's `info@vsualweb.com` is the sender/platform-operator identity and appears legitimately on
+  every email regardless of audience — that is not a domain-split violation.
+- **13 emails ship as of Track B11** — see §6 for the full list, node IDs and what each mirrors.
+
 **Clone node IDs** — console sidebar (Billing active) `JI-0` · **console sidebar (Catalog active)
 `KC8-0`** · console topbar `MY-0` · portal nav (Billing active) `DN-0` · portal nav (Home active)
 `3WG-0` · **auth card shell `EWB-0`** · illustrated empty state `FQS-0` ·
 **notification row `PHM-0`** (Track B5; icon lane + eyebrow/title column + mono nowrap timestamp lane
-+ chevron) · **All/Unread pill group `PHE-0` active / `PHH-0` inactive** ·
-**contractor console reference `QT0-0`** (Batch A; contractor topbar + six-item gated sidebar
-together - clone this for any future AC console screen, matches W-04 `IMB-0`) ·
-**project-detail list/table view `R0Z-0`** (Batch A; source for any future list view of a board)
++ chevron) · **All/Unread pill group `PHE-0` active / `PHH-0` inactive**
 
 **There is no Notifications item in the console sidebar and none in the portal nav.** Notifications
 are reached by the **bell in the chrome**, per sitemap §3.8 and §4. So S-02 in both chromes has **no
@@ -206,6 +560,19 @@ Billing, Catalog / Quotes, Contracts, Reports, Analytics (Phase 2, disabled) / *
 | **Inactive** (enabled, not current) | **`--color-ink` / 500** | `--color-ink-muted` |
 | **Disabled** (role-gated, CL-01c) | `--color-ink-muted` / 500 | `--color-ink-faint` |
 | **Phase 2/3** (route unbuilt) | `--color-rule-strong` / 500 | unstyled paths |
+**The toast component (Track B10) — the file's fourth shared idiom**, after B-03's skeleton pattern,
+CL-01-EMPTY's illustrated empty state, and the row-level timer affordance. Reference sheet `12VP-0`.
+400px wide, 12px radius, 14/16px block/inline padding, 12px gap, 1px `--color-rule` border,
+`--color-page` fill, fixed-width icon lane (`flexShrink:0`) and close lane (`flexShrink:0`). Four
+variants, each pairing the locked `-text` token on the matching `-bg` token: success, info, warning,
+destructive — geometry identical across all four, only the icon, icon-lane background token and copy
+change. Destructive is reserved for a genuine failure, never a blocked/unavailable affordance
+("unavailable is not an error"). Action links (`Undo`/`Review`/`Retry`) are always `--color-accent-text`
+regardless of variant — legitimate, §2 permits accent for links. **Deliberate, stated exception to the
+near-zero-shadow rule below**: a toast needs real elevation to read as a floating overlay; the shadow
+is `0 8px 24px rgba(24,25,37,0.14), 0 2px 6px rgba(24,25,37,0.08)` and the exception is written on the
+component sheet's own subtitle. Reuse this component; do not author a second toast.
+
 **`paper-screen-builder.md` WAS wrong about this and is now FIXED — stop overriding it by hand.**
 Its old swap recipe gave a deactivated item the *disabled* treatment, collapsing two states into one.
 The definition was rewritten before Track B5: it no longer embeds the design system at all, it points
@@ -293,6 +660,23 @@ version is kept at `.claude/agents/paper-screen-builder.PREVIOUS.md`.
   trap above** — assigning explicit coordinates in a brief is necessary but not sufficient, because
   a builder that only passes them to `create_artboard` will silently land somewhere else. Always
   reposition after creating, and verify with `get_basic_info` rather than trusting the create call.
+- **`backgroundColor` silently does not apply to Text nodes via `update_styles`.** No error, no
+  `ignoredStyles` entry — the property is simply absent from `get_computed_styles` afterward. Found
+  in Track B8 building `C-08b-LOADING`'s dark "Amount due" card skeleton. Fix: skeleton bars must be
+  separate `Frame` nodes, not a styled Text node; `color: transparent` is the only reliable way to
+  hide the text itself if a Text node must stay in place.
+- **`fit-content` does not self-correct when a drawer's content is absolutely positioned.** C-06
+  (`4FS-0`) was hard-clipped at a fixed 621px (`overflow:clip`) after new content pushed past the
+  bound; setting `height:"fit-content"` did nothing because Paper's fit-content sizing ignores
+  absolutely-positioned children, and an overlay drawer's content is absolute by the file's own drawer
+  recipe. Fix: measure the actual content height and set it explicitly. Found in Track B10.
+- **The Paper MCP connection can drop file-wide/session-wide, not just for one agent.** Track B8 hit
+  this mid-audit: a design-consistency-auditor lost the connection partway through, and three
+  subsequent fresh dispatches — including a bare no-op connectivity probe — all reported the Paper
+  tool **absent from their toolset entirely**, not a call failure. agent-manager's own direct tool
+  calls failed identically for the rest of the session. This is infrastructure, not a design
+  problem: if it recurs, stop retrying with new agents (it will not help) and report the outage
+  rather than working around it or fabricating progress.
 
 ---
 
@@ -418,7 +802,9 @@ invoice document; every invoice screen must reconcile with it.
 S-03 renders all of this: the VAT & billing identity card is **Legal name · VAT number · Tax office ·
 Registered address**. `Agency name` in the Agency profile card stays the brand mark **`VSUALWEB`** —
 two fields, two jobs: brand mark for chrome, legal name for documents. Do not re-merge them.
-`info@vsualweb.com` is sourced but **has no field anywhere in the file yet**.
+**`info@vsualweb.com` now has a field — the footer of every transactional email (Track B11).** The
+old note that it had no field anywhere is discharged; see §2's footer-identity-split row and §3's
+email chrome recipe.
 
 **The B-04 issuer contradiction is CLOSED.** B-04/B-04a/B-04b once printed a fabricated
 `EL 176 402 883 · Chania, Crete`; all three now carry the real identity. `176 402 883` returns zero
@@ -446,6 +832,8 @@ so one person keeps one email across screens.
 | `Giorgos Petrou` / `giorgos@vsualweb.com` | A-04 invitee · CL-01c account manager | **A wholly invented third agency person**, role Member — see the §6 note on the two-person agency. |
 | `finance@thalassafoods.gr` | B-03-EMPTY + CL-04/05/06/07-EMPTY | Thalassa's billing email. `finance@` + client `.gr` domain, matching Aegean's idiom and §2's billing-email-vs-login rule. |
 | `At least 10 characters, with one uppercase letter and one number.` | A-03 policy line | No password policy exists in the PRD or sitemap; this invents one. |
+| `finance@merakiinteriors.gr` | Email · Invoice overdue reminder (`13JP-0`) | Meraki's billing email — checked CL-07/C-08/C-08b directly first and confirmed Meraki had none established; invented on the same `finance@` + client `.gr` idiom, Track B11. |
+| `REQ-131`, "Custom CRM integration for the showroom booking flow" (Elias & Co, declined) | Email · Request declined (`13H5-0`) | Invented so the declined-request email is not a copy of the same request the "converted" email uses (which is real: REQ-122/REQ-118, both read off existing artboards). Track B11. |
 
 **The domain split still holds and still matters:** agency people use `vsualweb.com`, clients use
 `.gr`. Never put a client domain on an agency screen or the reverse.
@@ -482,35 +870,128 @@ back-solved VAT that was not 24% of its own net.
 
 ---
 
-## 6. Screens designed (119 artboards)
+## 6. Screens designed (180 artboards)
 
-**Batch A - the last three P1 variant screens (eight artboards, all at worldY 19000).** Built by a
-prior interrupted run, left undocumented, then audited and repaired in place (see §8). None rebuilt,
-no new shared idiom authored.
+**Track B11 — transactional email templates, 167 → 180 artboards, worldY 31000, worldX stepping
+1520 from -720.** Thirteen artboards, all sharing the fourth-chrome shell (§3):
+- `13BA-0` Email · Agency invite (→ A-04), canonical/first-authored, worldX -720
+- `13C0-0` Email · Client collaborator invite (→ A-04b), worldX 800
+- `13CL-0` Email · Password reset (→ A-03), worldX 2320
+- `13D6-0` Email · Invoice issued (→ C-08b, mirrors B-04a: Aegean, INV-2026-0207, €5,976.80, MARK
+  `400001827364519`), worldX 3840
+- `13DR-0` Email · Request received (→ portal requests, mirrors C-03b: REQ-122, Aegean, "Landing page
+  for the autumn charter promotion"), worldX 5360
+- `13EC-0` Email · Payment received (→ B-05, agency-facing: Kliniki Group IKE, INV-2026-0198,
+  €3,410.00), worldX 6880
+- `13FV-0` Email · New request (→ D-02, agency-facing, mirrors `13DR-0`'s own request for narrative
+  symmetry), worldX 8400
+- `13GI-0` Email · Request converted (→ C-05, client-facing: REQ-118, resolved by inspecting W-03's
+  `1KI-0`/`1KJ-0` tag to Aegean's real "Charter booking form — build and validation", Dimitra K.),
+  worldX 9920
+- `13H5-0` Email · Request declined (→ C-04, client-facing: invented REQ-131, Elias & Co — see §5's
+  invented-values table for why it's deliberately a different client/request from `13GI-0`), worldX
+  11440
+- `13HS-0` Email · Task status change (→ C-05, client-facing: Aegean's "Charter booking form" → In
+  review), worldX 12960
+- `13IF-0` Email · New comment (→ task, audience-agnostic — one template for both agency and client
+  recipients, renders zero comment content or attribution by design, see §2), worldX 14480
+- `13J2-0` Email · Time approved into balance (→ C-07, client-facing: Aegean 29.0 h / €2,465.00, from
+  CL-06's canonical ledger), worldX 16000
+- `13JP-0` Email · Invoice overdue reminder (→ C-08b, client-facing: INV-2026-0191, Meraki, €1,670,
+  overdue 6d, ties to PRD §6.7's manual "send reminder" action — no `--color-destructive` anywhere on
+  it, "unavailable is not an error" extended to overdue-as-routine), worldX 17520
+
+Together these cover all three of PRD §6.1's P0 auth emails and all seven of PRD §6.9's P0
+notification events, plus sitemap §5's named "reminder" — verified twice, independently, by direct
+node inspection (the first compliance pass on the initial six-email wave found only 2 of 7 §6.9
+events covered and called it a real gap; a second wave of seven closed it and was re-verified clean).
+One defect (a status-chip label wholesale in mono instead of sans-word/mono-value, on `13JP-0`) was
+found and fixed — see §2's new row and §8.
+
+**One real gap surfaced and left OPEN, not fixed in this track**: sitemap §5's "rich text editor
+(tasks)" has no design anywhere in the file — every task/request description (W-03's `1L7-0`, R-01's
+`230-0`) is a single plain Text node, and a file-wide search for any toolbar/formatting-icon row
+returned zero hits across all 180 artboards. The plain comment composer is built (Track B10); the
+rich-text half of that sitemap §5 pairing is not. **Sitemap §5's shared-component inventory is
+therefore NOT fully discharged.** Everything else in it now exists somewhere in the file — as a
+dedicated component sheet (toast, comment thread, and now email) or implicitly inside built screens
+(app shell minus mobile nav — a known, separately-accepted gap under desktop-1440-only, not new; data
+table; drawer/sheet; status chips; file upload + attachment list; plain comment composer; form
+patterns + validation; confirm dialogs; illustrated empty states; notification bell + list; timer
+widget; money/date display; invoice PDF template).
+
+**Track B10 — three shared-component gaps closed, 165 → 167 artboards, worldY 29000.**
+Comment thread built into existing drawers W-03 (`1C1-0`) and C-06 (`4FS-0`) — no new artboards, see
+the Track B10 header block above for the full visibility ruling. Invoice QR block added to B-04a
+(`2GR-0`) only — no new artboards. **Two new artboards, both toast-related**: `12VP-0` ("Toast ·
+Component sheet", worldX −720) and `12XU-0` ("CL-09 · ..., save toast (in-situ)", worldX 800) — see
+§3 for the component definition and the header block above for the precedent it sets.
+
+**Track B8 — file-wide empty/loading/error state coverage, 46 artboards, worldY 21000/23000/25000/27000. 119 → 165. COMPLETE.**
+
+Derived by walking the sitemap directly rather than trusting memory's old indicative list (§2 now records the durable rules this produced). Full ledger, by wave:
+
+*Wave 1, worldY 21000:* D-01-LOADING (`TEW-0`, x −720) · D-01-EMPTY (`TRV-0`, 800) · D-01-ERROR (`U4U-0`, 2320) · D-02-LOADING (`UHT-0`, 3840) · D-02-EMPTY (`UOK-0`, 5360) · D-02-ERROR (`UVB-0`, 6880) · T-01-LOADING (`V2G-0`, 8400) · T-01-EMPTY (`VCF-0`, 9920) · T-02-LOADING (`VME-0`, 11440) · **T-01-ERROR, shared by timesheet and approvals** (`VWR-0`, 12960).
+
+*Wave 2, worldY 23000:* B-01-LOADING (`X8W-0`, −720) · B-01-EMPTY (`XJ5-0`, 800) · B-02-LOADING (`Y3N-0`, 2320) · B-02-EMPTY (`YDZ-0`, 3840) · **B-01-ERROR, shared by balances and invoices** (`XTE-0`, 5360 — **carries a confirmed, unfixed count-assertion defect on its tab pills, see header**) · B-04-LOADING (`WLQ-0`, 6880) · B-04-EMPTY (`WXB-0`, 8400) · S-03-LOADING (`YOX-0`, 9920) · S-04-LOADING (`Z3X-0`, 11440) · S-05-LOADING (`ZBO-0`, 12960) · S-06-LOADING (`ZI6-0`, 14480) · **S-03-ERROR, shared by all four settings tabs** (`YWF-0`, 16000).
+
+*Wave 3, worldY 25000 (portal):* C-01-LOADING (`1051-0`, −720) · C-01-ERROR (`109H-0`, 800) · C-02-LOADING (`10DX-0`, 2320) · C-02-EMPTY (`10GR-0`, 3840) · C-02-ERROR (`10JL-0`, 5360) · C-04-LOADING (`10MF-0`, 6880) · C-04-EMPTY (`10PE-0`, 8400) · C-04-ERROR (`10SD-0`, 9920) · C-05-LOADING (`10VC-0`, 11440) · C-05-EMPTY (`10YC-0`, 12960) · C-05-ERROR (`111C-0`, 14480).
+
+*Wave 4, worldY 27000 (portal):* C-07-LOADING (`11DW-0`, −720) · C-07-EMPTY (`11JM-0`, 800) · C-08-LOADING (`11V2-0`, 2320) · C-08-EMPTY (`11XJ-0`, 3840) · **C-07-ERROR, shared by balance and invoices** (`11PC-0`, 5360) · C-08b-LOADING (`1200-0`, 6880) · C-08b-ERROR (`12HD-0`, 8400) · C-09-LOADING (`122R-0`, 9920) · C-09-ERROR (`1253-0`, 11440) · C-10-LOADING (`127F-0`, 12960) · C-10-ERROR (`12AC-0`, 14480).
+
+**Deliberately built with no EMPTY, and why (record this so it is never re-opened by a future session reading the sitemap literally):**
+- **S-03, S-05, S-06, C-10** — pure settings forms, no collection to be empty. Matches the file's existing CL-09/CL-02 precedent.
+- **S-04, C-09** — a team roster always contains at least the viewer's own account, so a zero roster cannot realistically happen. **Note a live tension, not yet resolved:** `CL-04-EMPTY` (client-side Users tab) already exists for a structurally similar roster, on the reasoning that a *client's own* invited users can genuinely be zero before the first invite — that is a real distinguishing feature (client users are invited after client creation; agency/company members are not), but it was never written down until spec-compliance-checker flagged the apparent inconsistency in this track. Recorded so nobody "fixes" one side without reading this note first.
+- **C-01** — already covered by the pre-existing first-visit variant `C-01b`, which the sitemap itself names as the "nothing yet" scenario.
+- **C-08b** — a single "payment record" line, not a list, unlike B-05's genuine payments sub-collection which is why B-05 alone gets an EMPTY.
+- **B-04** — gets no new ERROR at all (not just no EMPTY): the pre-existing `B-04b` ("Issue failed — provider error, draft preserved") already is the sitemap's own named error state for this tab.
+
+**Deliberately shared, one error artboard per route-group, and why:** B-01/B-02, T-01/T-02, S-03/S-04/S-05/S-06, and C-07/C-08 are each one console-or-portal route with multiple tabs (route tree confirms each), so a content-independent load-failure panel is shared across the group on the same reasoning as `CL-03-ERROR`/`CA-01-ERROR`. LOADING and EMPTY stayed per-tab throughout, because each tab's body geometry differs — the same reasoning that already kept CL-04/CL-05/CL-08/CL-09 off `CL-03-LOADING`.
+
+**C-03 (Client Portal — New request) now has both states, built in the follow-up session.**
+`C-03-LOADING` (`12OY-0`) and `C-03-ERROR` (`12SN-0`), worldY 27000, worldX 16000/17520, cloned from
+`45W-0`. No EMPTY, matching S-03/S-05/S-06/C-10 (pure form, no collection). LOADING skeletonizes the
+fetch-dependent eyebrow and the whole form card using the file's one skeleton idiom (originated on
+`B-03-LOADING`); the static right-rail "What happens next" content and the Cancel/Send buttons stay
+real. ERROR matches the `C-01-ERROR`/`C-02-ERROR` load-failure panel treatment and asserts no counts.
+This closes the gap spec-compliance-checker found — C-03 fetches a prefilled service on load, unlike
+the pure-blank-form CL-02 precedent it superficially resembles, so it needed LOADING/ERROR after all.
+
+**`XTE-0`'s count-assertion defect is FIXED.** The "Balances 6"/"Invoices 9" tab-pill counts were
+stripped to bare "Balances"/"Invoices"; active/inactive pill treatment is otherwise untouched.
+Verified by node inspection — a full sweep of the rest of the artboard found no other count
+assertion. See §8's correction log entry.
+
+**The design-consistency audit on Track B8 is now fully complete — all 46 artboards inspected
+(16 pre-outage + 30 in the closing session).** One new defect surfaced on `C-05-LOADING` — accent
+used for a task-status column highlight, mirroring the same defect on live `C-05`. **It is now
+CLOSED, and chasing it turned into a file-wide sweep that found the same class on seventeen nodes
+across eleven artboards, including `D-01` itself.** All fixed and verified; see §2's two new rows
+(dot-only colour, and sweep the clone family) and §8. It was never part of the state-coverage debt —
+it predates Track B8 and was only exposed by it.
+
+**W-02's list view + the two contractor variants (Track B7 — eight artboards, all at worldY 19000)** —
 **W-02a project detail: list view** (`R0Z-0`, x −720) · **W-02a-LOADING** (`RHE-0`, 800) ·
-**W-02a-EMPTY, no tasks** (`RU3-0`, 2320) · **W-02-LOADING board** (`SM4-0`, 3840) ·
-**W-02-EMPTY board, no tasks** (`SUH-0`, 5360) ·
-**W-02-ERROR, load error (pattern, board and list)** (`T2U-0`, 6880) ·
+**W-02a-EMPTY** (`RU3-0`, 2320) · **W-02-LOADING** (`SM4-0`, 3840) ·
+**W-02-EMPTY, no tasks** (`SUH-0`, 5360) · **W-02-ERROR, shared by board and list** (`T2U-0`, 6880) ·
 **W-02b project board, contractor (AC)** (`S6S-0`, 8400) ·
 **D-01a dashboard, contractor (AC)** (`QT0-0`, 9920)
 
-**W-02a closes the PRD §6.5 P0 gap** - "board and list view per project" now has both views. It is a
-genuine distinct route body (`/projects/{id} board | list`), so it correctly owns its own
-`-LOADING`/`-EMPTY` and **shares the content-independent `W-02-ERROR` with the board** - board and
-list share the project-detail shell *and* body region, the exact CL-03-ERROR / CA-01-ERROR condition
-in §2. The board additionally gained its own `-LOADING`/`-EMPTY`, which **discharges the W-02
-state-coverage debt** the list below used to carry. **W-02b and D-01a carry no state artboards** -
-pure role/permission variants, precedent CL-01c/CL-01d/S-03a. The eight-artboard set is the complete
-required-state set for W-02 board + W-02a list + the two role variants.
-**Both contractor screens gate the sidebar exactly like W-04 (`IMB-0`)** - Requests, Clients, Billing,
-Catalog, Audit log, Settings muted (label `--color-ink-muted`/500, icon `--color-ink-faint`, badges
-`--color-neutral-bg`/`--color-ink-muted`), verified token-for-token by the design auditor. **D-01a is
-the reduced dashboard** - "My hours" KPI + my-tasks-grouped-by-status + timer only, no money or
-agency-wide widgets - rendering the **Dimitra K. / Contractor** persona (§5). **W-02b is the filtered
-board** ("AC: assigned tasks only") on the same persona. **QT0-0 is now the clean contractor-console
-reference** (contractor topbar + gated sidebar together) for any future AC screen; **R0Z-0 is the
-source for any future project-detail list/table view.** The W-02a Board/List toggle is an **ink-filled
-active pill with no accent** - accent stays reserved to the running timer.
+**W-02a closes the file's only undesigned P0.** PRD §6.5 requires "Board view and list view per
+project" and sitemap W-02 names the toggle; only the board (`13J-0`) existed. This was never on the
+"still to design" list — it was found by walking the PRD directly, which is the fourth time that list
+has proved incomplete.
+**The error artboard is shared across board and list; loading and empty are not.** `/projects/{id}
+board | list` is **one route with two tabs**, so the two share a shell *and* a body region — exactly
+the condition §2 requires, and the same reasoning that gives the catalog one `CA-01-ERROR`. The two
+bodies differ (columns vs rows), so each gets its own loading and empty. **There is deliberately no
+`W-02a-ERROR`; do not add one to "complete the set".**
+**W-02b and D-01a are role variants and correctly carry no state artboards**, following CL-01c,
+CL-01d and S-03a.
+**Contractor is rate-blind — the opposite direction from the account manager.** PRD §4, §6.5, §9 and
+sitemap S-04 each say so independently, and §6's AM note above warns this is easy to get backwards:
+an AM **keeps** the money columns, a contractor does not. D-01a reduces to my tasks + my timer per
+sitemap D-01; W-02b is filtered to assigned tasks only per sitemap W-02.
 
 **System + the Admin settings variant (Track B5 — thirteen artboards, all at worldY 17000)** —
 **S-01 audit log** (`NXD-0`, x −720) · **S-01-LOADING** (`OK4-0`, 800) ·
@@ -623,10 +1104,9 @@ error and empty state. Nothing in the Clients area is owed.
 B-04a/b, C-01b and CL-09a are flow variants and correctly keep their lowercase suffixes. See §8.
 
 **The illustrated empty state is the file's second shared idiom**, after B-03's skeleton/loading
-pattern. Authored once on CL-01-EMPTY (root `FQS-0`) and cloned outward - **fourteen uses as of Batch
-A** (the original six, plus B-05-EMPTY, CA-01-EMPTY, CA-02-EMPTY, S-01-EMPTY and both S-02-EMPTYs
-through Track B5, then W-02a-EMPTY `RU3-0` and W-02-EMPTY `SUH-0` when Batch A's miscloned bodies
-were replaced, §8), verified byte-identical every time.
+pattern. Authored once on CL-01-EMPTY (root `FQS-0`) and cloned outward — **twelve uses as of Track
+B5** (the original six, plus B-05-EMPTY, CA-01-EMPTY, CA-02-EMPTY, S-01-EMPTY and both S-02-EMPTYs),
+verified byte-identical every time.
 **Reuse it; do not author a second one.** It is a 72×72
 `--color-neutral-bg` glyph at 16px radius holding two `--color-rule` bars, an 18px/600 ink title,
 a 14px/400 ink-muted line capped at 380px, centred at 64px/24px padding with 16px gap. Deliberately
@@ -748,33 +1228,34 @@ token, same radius family. This is the sanctioned extension — a taller bar is 
 tree line by line in Track B5, and independently by spec-compliance-checker. The auth set (B1),
 W-01/W-04 (B3), B-05 and the catalog (B4), and S-01/S-02/S-03a (B5) are all done with their states.
 
-**Route coverage is NOT the same as design coverage. The three variant items that used to sit here are
-now DISCHARGED - built in Batch A (§6 top, worldY 19000), audited and repaired.** They were the fourth
-time this list proved incomplete, so treat the warning as permanent rather than historical, and keep
-walking the sitemap route tree yourself before scoping any batch.
+**Route coverage is NOT the same as design coverage.** Three things were missing here and **none of
+them was ever on this list** — which is the fourth time the list has proved incomplete, so treat the
+warning below as permanent rather than historical.
 
-- ~~**W-02's list view (PRD §6.5 P0).**~~ **DONE - `R0Z-0` (W-02a)**, with its own `-LOADING`/`-EMPTY`
-  and the shared `W-02-ERROR`. The board also gained `-LOADING`/`-EMPTY`. P0 gap closed.
-- ~~**D-01's contractor variant.**~~ **DONE - `QT0-0` (D-01a)**, the reduced "my tasks + my timer"
-  dashboard on the Dimitra K. / Contractor persona.
-- ~~**W-02's contractor variant.**~~ **DONE - `S6S-0` (W-02b)**, the "AC: assigned tasks only"
-  filtered board on the same persona.
+**All three are now BUILT (Track B7) — W-02a list view, W-02b contractor board, D-01a contractor
+dashboard, with states. See the Track B7 block at the top of §6.** The list of *route* screens and
+the list of *variant* screens are both empty. **The file-wide state-coverage debt below is a
+different thing and is untouched.** Undesigned.
 
-**The state-coverage debt across older screens is large and mostly untouched.** Sitemap §Conventions
-requires empty/loading/error on **every** P1 screen. The Clients area (B2), Work (B3), B-05 + catalog
-(B4) and System (B5) are complete. **W-02 is now complete too (Batch A: board + list, all states).**
-Most of the rest is not: **D-01, D-02, T-01, T-02, B-01,
-B-02, S-04, S-05, S-06** console-side, and **C-01/C-01b, C-02, C-04, C-05, C-09, C-10** portal-side
-each lack one or more. Drawers (R-01, W-03, C-04's, C-06) are exempt by the precedent recorded above.
-A Track B5 compliance run put the figure near 26 screens, **but that same run also reported C-07 as
-"missing entirely from the file" when it plainly exists (`DM-0`)**, so treat the list as indicative
-and re-derive the exact set before scoping a batch on it.
+**The state-coverage debt is FULLY CLOSED, including C-03.** Sitemap §Conventions requires
+empty/loading/error on every P1 screen. Clients (B2), Work (B3), B-05 + catalog (B4), System (B5),
+D-01, D-02, W-02 (B7), T-01/T-02, B-01/B-02, B-04, S-03/S-04/S-05/S-06, the portal's C-01, C-02,
+C-04, C-05, C-07/C-08, C-08b, C-09, C-10, and now **C-03** (all Track B8) are all complete or
+complete-with-a-recorded-reason-for-what's-missing. Drawers (R-01, W-03, C-04's, C-06) remain exempt
+by precedent. **A Track B5 compliance run once put the figure near 26 screens and separately reported
+C-07 as "missing entirely" when it plainly exists (`DM-0`) — that figure is now moot, but the lesson
+stands: a checker asserting absence is a claim, not a fact, verify against `get_basic_info` yourself.**
+**The `C-05`/`C-05-LOADING` accent-on-task-status-column collision that stood here as open is
+CLOSED** — along with sixteen more nodes of the same class found by sweeping outward from it. See
+§2's two new rows and §8. It was never state-coverage debt; it was a pre-existing defect Track B8's
+audit happened to expose. **Nothing is open in that area any more — C-06's drawer header pill is CLOSED (Track B9).** `4IV-0`
+is now bare dot+label, matching every other task-status render in the file. See §2.
 
-**One S-02 ↔ S-06 spec gap worth closing.** S-06's toggle groups and S-02's rendered event types do
-not share a vocabulary. PRD §6.9 names *invoice issued* and *time approved into balance*; S-02
-renders both, but S-06 offers no toggle for either — so a user can receive a notification they cannot
-switch off. This is a **pre-existing S-06 gap that S-02 exposed**, not a B5 defect. Closing it means
-editing S-06, which was out of B5's scope.
+**The S-02 ↔ S-06 "vocabulary gap" is CLOSED (Track B9), by ruling rather than by edit.** Direct
+inspection of `OEB-0` (console S-02) found it never renders *invoice issued* or *time approved into
+balance* — those are client-tagged PRD §6.9 events that only reach `QCB-0` (portal S-02). S-06 is
+console-only with no portal counterpart, so there was nothing in its own audience's notification
+stream for it to toggle. See §2's new row for the durable rule this produced. `EIO-0` is unedited.
 
 **Do not assume this list is complete without re-checking the sitemap route tree yourself.** Four
 screens were missing from it entirely until the Aug 2026 audit caught them, W-01/W-04 were missing
@@ -802,13 +1283,12 @@ It has no component-level artboard of its own, like every other shared component
 clock icon, `No timer running` in ink-muted 13px/500), authored on W-04-EMPTY because a running timer
 beside an empty task list contradicts itself. No idle form existed anywhere in the file before.
 
-**The rest of sitemap §5's shared component inventory** still has no component-level artboards —
-data table, drawer/sheet, comment thread, confirm dialogs, toasts, illustrated empty states,
-money/date display, **invoice PDF template** (branded, Greek-compliant, MARK + QR block) and the
-**transactional email templates**. These exist implicitly inside built screens only.
 **"Notification bell + list" came off this list in Track B5** — the list now has dedicated screens in
 both chromes (S-02 ×2) and the bell has a documented active state and a numbered badge. It still has
 no *component-level* artboard, like every other shared component here.
+**Comment thread, toasts and the invoice PDF QR block came off this list in Track B10** — see the
+Track B10 header block and this section's opening paragraph above for the current, accurate version
+of what remains undesigned.
 
 **The row-level timer affordance is the file's THIRD shared idiom**, after B-03's skeleton/loading
 pattern and CL-01-EMPTY's illustrated empty state. Authored on W-04 (Track B3); reuse it, do not
@@ -882,9 +1362,10 @@ independently invented different versions of the third.
   task-status dot renders anywhere in the catalog, verified — so this was a semantic-clarity call,
   not a defect fix. HOURLY keeps review as its only catalog use.
 
-**Pre-existing, file-wide, out of scope when found:** sidebar badge counts render in sans, not Geist
-Mono, against §3's mono-for-counts rule. On every console screen, inherited by every clone. Fixing
-it is a file-wide pass, not a batch fix.
+**Sidebar badge counts — CLOSED file-wide (Track B9).** Every console-chrome sidebar badge count now
+renders `--font-mono` per §3's mono-for-counts rule. 114 console artboards inspected, 337 badge Text
+nodes fixed (336 in the main sweep + 1 miss on `CL-01`'s `513-0` caught by an independent audit spot-
+check and fixed). No wrapping or clipping resulted. See §8 for the correction detail.
 
 ---
 
@@ -935,6 +1416,124 @@ verbatim at the top of every builder brief. **It no longer applies. Stop putting
 ---
 
 ## 8. Correction log
+
+**Track B11 — transactional email templates. One real gap found and closed mid-track by a
+compliance check; one real defect found and fixed; the shell itself passed clean twice.**
+- **The first build wave (six emails) was genuinely incomplete, not a defensible scope call.**
+  agent-manager's own initial brief picked five "obvious candidate" emails plus one extra (payment
+  received) without checking PRD §6.9's full seven-event list against what got built.
+  spec-compliance-checker caught it: only 2 of 7 P0 notification events were covered, and one of the
+  six emails built wasn't a §6.9 event at all. Rather than accept the gap or paper over it with a
+  weak "generic template" argument, a second build wave of seven closed all five missing events plus
+  sitemap §5's named "reminder." Re-verified independently and found fully covered. **This is
+  agent-manager's own scope call being corrected by a specialist mid-track**, not a builder's
+  self-report — the same "verify, don't relay" discipline applies to agent-manager's own briefs.
+- **One defect found and fixed**: `13JP-0`'s "OVERDUE 6 D" status chip shipped as one Text node
+  wholesale in `--font-mono`; the file's own precedent (B-02's PAID/VOID chips) keeps the status word
+  sans and only the value mono. Split into siblings, verified by computed styles, swept all 13 emails
+  for the same class and found nothing else.
+- **One real, still-open gap surfaced by walking sitemap §5 to its end**, not by anyone's checklist:
+  no rich-text editor exists anywhere in the file for task/request descriptions. This was not on any
+  prior "still to design" list — the closest anyone came was building the *plain composer* for
+  comments (Track B10), which is a structurally different component from a task's own rich-text
+  description field. Confirmed by direct node inspection (W-03's `1L7-0`, R-01's `230-0`, both plain
+  Text nodes) and a file-wide zero-hit search for any toolbar icon row. Left open, flagged for
+  whoever next opens W-03 or R-01. See §6.
+- **Both the shell (first six emails) and the gap-fill (seven more) passed design-consistency audits
+  clean on the first pass**, verified by computed styles and screenshots, not self-reports — this
+  keeps the file's Track B10 streak of clean sweeps intact on the *styling* side even though the
+  *coverage* side needed a real correction.
+
+**Track B10 — three builds, both independent checkers passed all three clean, zero corrections
+needed.** Worth recording precisely because it breaks the pattern: §8 has recorded a self-report or a
+"clean" verdict needing correction on effectively every prior large-sweep track (six instances before
+this one). This time, design-consistency-auditor and spec-compliance-checker were dispatched
+independently against all three builders' claims — including the highest-stakes one, C-06's "zero
+agency-only leakage" — and both confirmed every claim by direct node/computed-style inspection rather
+than relaying it. The one genuinely new finding, not claimed by any builder, was the auditor's
+independent judgment call on the agency-only badge's lower-contrast token (§2's new row) — judged
+still unmistakable, not a defect, but flagged as a close call worth a second look if the file's alerting
+language shifts further toward muted. No claim from any of the three builders failed verification.
+
+**Track B9 — three items, all resolved. One agent-manager premise corrected by a specialist; one
+specialist's own "100% complete" claim corrected by an independent audit.**
+- **The S-06↔S-02 vocabulary gap, as framed in the brief, was wrong.** agent-manager's brief (echoing
+  §6's old note) claimed S-06 offered no toggle for *invoice issued*/*time approved into balance*
+  while "S-02 renders both" — true only of `QCB-0` (portal). The specialist checked `OEB-0` (console)
+  directly, row by row, and found it renders neither event at all, so S-06 (console-only, no portal
+  counterpart) had nothing to toggle. **No edit was made; the correct output was a ruling, not a
+  fix.** New §2 row records the durable rule. This is the sixth time this file's own summary of a
+  gap needed correcting by direct inspection rather than being taken at face value (§6 already
+  tracked five prior instances of this pattern).
+- **C-06's drawer header pill converted to bare dot+label, closing the design question §2 had left
+  open since the Track B8 accent sweep.** `4IV-0` stripped of fill/radius/padding; `4IW-0` (formerly
+  a 5px bullet recoloured to stay visible against the pill) repurposed as the real 8px status dot;
+  `4IX-0` recoloured to `--color-ink`. Verified independently by design-consistency-auditor via
+  computed styles — correct on all three nodes, header layout intact. **Clone-family sweep required
+  by §2 found no recurrence**: W-03 (console's equivalent task drawer) has no task-status pill in its
+  header at all — a structurally different "FROM REQUEST" source tag occupies that slot. C-06's
+  approval-progress stepper was checked and correctly judged a distinct component, not a second
+  collision. One watch-item surfaced, not fixed: W-03's source tag uses `--color-accent-wash`/
+  `--color-accent-text`, arguably a stretch of §2's "accent = active-state marking only" reservation
+  — pre-existing, out of this track's scope, left for whoever next opens W-03.
+- **Sidebar badge counts swept from sans to Geist Mono, file-wide — and the specialist's own "336/336
+  complete" claim was wrong.** A builder enumerated 114 console artboards and fixed 336 badge Text
+  nodes, reporting full completion. design-consistency-auditor spot-checked ~30 nodes across 9
+  artboards **not** in the builder's own cited sample and found one miss: `CL-01` (`4YR-0`) sidebar
+  Billing badge `513-0` was still sans (its clone `CL-03`'s equivalent badge was correctly mono, so
+  the miss was isolated, not propagated). Fixed in a one-node follow-up, verified by computed styles.
+  **This is the fifth time in this file's history a checker's or builder's "clean"/"complete" verdict
+  needed correcting by a second, independent inspection** (§8 already recorded four prior instances
+  across both specialist roles) — the standing instruction to verify rather than relay is not
+  precautionary, it has caught a real miss on effectively every large sweep run in this file so far.
+
+**Track B8 — two findings CLOSED in the follow-up session, one new finding OPEN.**
+- **`XTE-0` (shared B-01/B-02 error panel) asserted live tab-pill counts — "Balances 6" / "Invoices 9"
+  — beside a "couldn't load" panel.** Count-assertion rule (§2) violated a **fourth** time, always
+  on a control rather than a caption (filter pills, nav badges, KPI chips, now a tab pill). Found by
+  design-consistency-auditor. **FIXED** — both numbers deleted, pills now read bare "Balances"/
+  "Invoices" with active/inactive treatment intact. Verified by node inspection; a full sweep of the
+  rest of the artboard found no other count assertion.
+- **C-03 (Client Portal — New request) had no LOADING/ERROR.** Found by spec-compliance-checker —
+  it fell through agent-manager's own re-derivation of the state-coverage set, the fifth time this
+  kind of list has proved incomplete (§6 already recorded four prior instances). **BUILT** —
+  `C-03-LOADING` (`12OY-0`) and `C-03-ERROR` (`12SN-0`), no EMPTY.
+- **agent-manager's own derivation of the Track B8 scope missed C-03 outright.** Worth recording as
+  a fifth instance of the "the list has been wrong more often than it has been right" pattern (§6),
+  this time in agent-manager's own from-scratch re-derivation, not an inherited stale list. A
+  specialist caught it, as has happened every time before.
+**The accent / status-label sweep — CLOSED. The single largest recurrence in this file's history.**
+*(This supersedes the "NEW, OPEN — C-05-LOADING" entry that stood here. It is closed, not pending.)*
+
+- **It started as one defect and ended as seventeen nodes across eleven artboards.** The Track B8
+  closing audit reported one: `--color-accent-wash`/`--color-accent` on C-05's "WAITING ON YOU"
+  column (`4EZ-0` on `49S-0`, `119W-0` on `10VC-0`). Chasing it found the same defect on C-06's
+  dimmed base layer (`4I0-0`), W-03's base layer (`1J6-0`), C-01's summary row (`409-0`), **D-01's
+  own summary row (`BT-0`) and its two clones (`TGO-0`, `TTN-0`)**, plus coloured status **labels**
+  on `4F2-0`, `4I3-0`, `1AV-0`, `S82-0`, `1J9-0`, `40B-0`, `BV-0`, `TGQ-0`, `TTP-0`, and an
+  accent-filled status pill on C-06's drawer header (`4IV-0`). All fixed, all re-verified by
+  computed styles. **The two new §2 rows are the durable output; read those, not this list.**
+- **The proposed fix was wrong and matching siblings was right.** The auditor recommended swapping
+  accent tokens for **warning** tokens. That would have left a uniquely tinted container on every
+  screen — still the one column that looks different from its four siblings, just in a new hue.
+  Inspecting the actual siblings gave three *different* correct answers: `--color-neutral-bg` on
+  C-05's board, `--color-surface-muted` on W-02's and W-03's, and **no fill at all** on D-01's and
+  C-01's summary rows. **Never substitute a token when the sibling carries none — remove the
+  property.** A hue swap looks like a fix and preserves the defect.
+- **`D-01` was the origin and appeared on no list.** Not in §6's state-coverage list, not in the
+  audit's named scope, not in the fix brief — it was found only because the sweep was told to
+  distrust its own list. Its `-LOADING` and `-EMPTY` clones had inherited the defect from it, which
+  is how a "new" B8 defect turned out to predate B8 entirely.
+- **A clean audit report is not evidence of a clean artboard.** The Track B8 tail audit reported the
+  artboards around `4FS-0` clean while `4FS-0`'s own dimmed base layer carried the defect. Two
+  separate audits passed `13J-0` after B7 fixed its column, and its **label** was wrong the whole
+  time. **Fifth recurrence, and the fourth time a checker's clean verdict was wrong** — §8 now
+  records that failure class for spec-compliance-checker twice and design-consistency-auditor twice.
+- **One builder judgment call, recorded because it was not authorised.** Recolouring C-06's pill from
+  a dark accent fill to light `--color-warning-bg` left its 5px leading bullet (`4IW-0`) white and
+  therefore invisible. The builder recoloured it to `--color-warning-text` unprompted and **said so
+  plainly rather than burying it**. The call was correct and is kept. Note the bullet is *not* a
+  task-status dot — it is part of the pill's label — so it does not breach the dot-only rule above.
 
 - **INV-2026-0177** was shown as Aegean's last invoice on C-07 while B-02 assigned it to Nostos
   Travel. Fixed: C-07 now shows INV-2026-0203, €3,900, ISSUED, due 4 Sep.
@@ -1316,47 +1915,6 @@ C-06 uses a filled+bordered 20×20 timeline marker** — all geometry and copy, 
   a *token* beats a sweep for a *label string* when copy varies by surface. This is the third time §8
   records a dimmed base layer nearly being missed.
 
-**Batch A - the three P1 variants were already built, undocumented; audited and repaired. 111 → 119
-artboards.** A prior interrupted run had built all of Batch A at worldY 19000 (the eight artboards
-listed at the top of §6) and committed nothing - the file was two full tracks ahead of this memory.
-The screens were verified, not trusted, and **four real defects surfaced under node inspection:**
-- **Three "state" artboards had been miscloned.** `RU3-0` (W-02a-EMPTY) rendered a full 13-row table
-  with a running timer; `SUH-0` (W-02-EMPTY) rendered a full five-column board with a running-timer
-  card; `T2U-0` (W-02-ERROR) rendered a fully populated board plus an owner budget-burn widget. Only
-  the two loading skeletons (`RHE-0`, `SM4-0`) were correct. Fixes: bodies replaced via
-  `write_html replace` with the `FQS-0` illustrated-empty clone (empties) and an `ICQ-0` W-01-ERROR
-  clone (error, headline "Couldn't load this project's tasks", standard subtitle + `--color-ink` pill
-  Retry); running sidebar timers swapped for the idle form; empty-board burn header swept to
-  0.0/90.0h · "90.0 H REMAINING" · "0% of budget used" with the burn-fill rect deleted. Orphans left
-  non-rendering per §4 policy: `T2X-0`, `T67-0`, `RU7-0`, `S3E-0`, `SUK-0`, `SZG-0`, `SXZ-0`.
-- **`S6S-0` (W-02b) carried the Owner persona** in the topbar on a screen named "contractor (AC)".
-  Fixed to Dimitra K. / Contractor / DK (`SBB-0`/`SBA-0`/`SB8-0`), matched to `QT0-0` and `IMB-0`.
-- **THE LESSON: a `-EMPTY`/`-ERROR` artboard existing under the right name is not evidence the state
-  was built.** A clone whose body was never swapped renders the *source's* populated content, silently
-  and with no error - three of five state artboards here were exactly that. **Verify a state artboard
-  by inspecting its body, never by trusting its name or its presence in the artboard list.** This is
-  the mirror of §4's "a rename cannot be verified with `find_nodes`" - an artboard's name and its
-  content are independent, in both directions.
-- **spec-compliance-checker mis-read persona and empty states from screenshots/names again** - it
-  reported W-02b's persona "correct (Dimitra K.)" and the empties as fine, all three wrong. Same
-  failure mode §8 already records for that agent (the W-04 sidebar false-positive). The
-  design-consistency-auditor's node-level findings were authoritative and the miscloned bodies would
-  have shipped undocumented on the spec checker's say-so. **A claim about rendered persona, colour or
-  which body a state artboard shows must be settled at node level, not from a screenshot.**
-- **Even the design auditor's screenshot-derived body description of `T2U-0` was imprecise** (it named
-  a contractor "MY HOURS LOGGED 12.0h" widget; node inspection found owner chrome byte-identical to
-  `13J-0` with a 64.0/90.0h owner budget widget). Its structural conclusion - a populated board where
-  an error panel belonged - was still correct, so the fix target held; the fix was authored off the
-  node truth, not the screenshot description.
-- **Passed clean after fixes:** contractor sidebars on both `S6S-0` and `QT0-0` match W-04 (`IMB-0`)
-  token-for-token (six gated items ink-muted/ink-faint, badges neutral-bg, correct route active-marked);
-  W-02a Board/List toggle ink-filled with no accent; five-hue task map, mono discipline, contrast,
-  fonts (zero system-ui) and §2 naming all compliant. Nothing rebuilt, no new shared idiom authored.
-  **Known layer-label quirk left unfixed** (invisible to users, W-01 "New client" precedent): on
-  `R0Z-0` the toggle segment named "Board (active)" (`R4U-0`) is the styled-*inactive* half and
-  "List (inactive)" (`R4S-0`) is the styled-*active* one - labels swapped from rendered state; rename
-  only if already editing those nodes.
-
 *(Historical statement of the problem, kept because the reasoning is still the ruling:)*
 W-02's task-status dot for **waiting on client is `--color-accent`** (`1AU-0`), and W-02's own running
 timer card already uses accent too (1px accent border, accent dot, mono `--color-accent-text` elapsed).
@@ -1530,3 +2088,33 @@ rule, and the first where that rule was extended to *controls* as well as chrome
   contractor variant. Fourth time the to-do list has proved incomplete. See §6.
 - `get_screenshot` **worked normally this session**, so the design audit was fully visual — the first
   clean run since Track B2. The §4 trap still stands as intermittent.
+
+**Track B7 — W-02a list view + the two contractor variants. 111 → 119 artboards.**
+
+- **`--color-accent-wash` was back on the *waiting on client* column. This is a RECURRENCE, not a new
+  find.** Track B4 spent a whole pass moving that status off accent (§2's task-status hue map) and it
+  reappeared on the board's **column header/body fill** — `1AS-0` on `13J-0` and `S7H-0` on `S6S-0` —
+  a surface the B4 sweep, which targeted the status *dot*, never touched. Both fixed to
+  `--color-surface-muted`, matching every sibling column, and confirmed by computed styles.
+  **Treat the board's waiting-on-client column as a known trap**: accent means exactly one thing
+  file-wide, a running timer, and this status has now drifted back onto it twice.
+- **Task-status colour belongs on the dot, never on the label.** Two rows of `R0Z-0`'s list view
+  shipped their status *text* in `--color-warning-text` (`RDS-0`, `REB-0`) while every other status
+  label on the screen was plain `--color-ink`. Fixed to `--color-ink`. §2's task-status treatment is
+  **bare dot + label**; colouring the label as well doubles the signal and edges the family toward the
+  filled-pill treatment that belongs to request and client status.
+- **Both defects were found by design-consistency-auditor and neither by the builder or by
+  spec-compliance-checker**, which passed clean on every functional dimension it checks (P0 coverage,
+  contractor rate-blindness, filtered scope, state coverage, naming, single-running-timer). A spec
+  checker does not see hue drift; the two runs are not substitutes.
+- **PROVENANCE OF THESE EIGHT ARTBOARDS IS UNRESOLVED — do not resolve it by guessing.**
+  agent-manager reported it found all eight *already built* in the file with no record in memory, and
+  therefore verified rather than rebuilt. That could not be confirmed from outside the run: the track
+  was interrupted partway, so the artboards may equally have been built by B7's own builders and then
+  misdescribed. **§8 already records agent-manager getting four of its own premises wrong on one track
+  and fabricating specialist reports on two consecutive tracks**, so the claim is recorded as a claim.
+  **What IS verified by direct inspection**: `get_basic_info` returns 119 artboards, all eight IDs
+  resolve at worldY 19000 with the names and coordinates listed in §6, both auditors ran against them,
+  and the two defects above were fixed and re-verified. Nothing in this entry depends on which session
+  drew them. If a future session finds evidence either way, correct this paragraph rather than
+  quietly assuming.
